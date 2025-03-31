@@ -29,7 +29,6 @@ def getTranscriptionReactions(sim):
 
     # Transcription to from R3
     kalpha3 = 0.7465 # min^-1
-    
     sim.addReaction(reactant='DG3_G4d', product=('R3','DG3_G4d'),rate=kalpha3*0.571429)
 
     # Degradation of R3
@@ -61,7 +60,7 @@ def getTranscriptionReactions(sim):
     kdr_gal80 = 0.02888 # min^-1
     sim.addReaction(reactant='R80', product='', rate = kdr_gal80)
 
-def getTranscriptionReactions_non_reg(sim, mutant_q=1.0,f_mut=0.04):
+def getTranscriptionReactions_non_reg(sim):
     
     # Transcription to form R1
     kalpha1 = 0.7379 # min^-1
@@ -79,12 +78,10 @@ def getTranscriptionReactions_non_reg(sim, mutant_q=1.0,f_mut=0.04):
     kdr_gal2 = 0.07702 # min^-1
     sim.addReaction(reactant='R2', product='', rate = kdr_gal2)
 
-    # Transcription to form R3( we dont need regualtion here), G4d removed 
+    # Transcription to from R3( we dont need regualtion here), G4d removed 
     kalpha3 = 0.7465 # min^-1
-    # mutant_q = 1
-    # f_mut = 0.04 # 0.04 ~0.06
-    sim.addReaction(reactant='DG3', product=('R3','DG3'),rate=kalpha3*mutant_q*f_mut)
-    # sim.addReaction(reactant='', product=('R3'),rate=kalpha3*mutant_q*f_mut)
+    sim.addReaction(reactant='DG3', product=('R3','DG3'),rate=kalpha3*0.571429)
+
     # Degradation of R3
     kdr_gal3 = 0.02666 # min^-1
     sim.addReaction(reactant='R3', product='',rate=kdr_gal3)
@@ -106,10 +103,10 @@ def getTranscriptionReactions_non_reg(sim, mutant_q=1.0,f_mut=0.04):
     kdr_rep = 0.03466 # min^-1
     sim.addReaction(reactant='reporter_rna', product='', rate = kdr_rep)
     
-    # Transcription to form R80( we dont need regualtion here), G4d removed  
+    # Transcription of R80( we dont need regualtion here), G4d removed  
     kalpha80 = 0.6065 # min^-1
-    sim.addReaction(reactant='DG80', product=('R80','DG80'), rate = kalpha80* f_mut)
-    # sim.addReaction(reactant='', product=('R80'), rate = kalpha80 * f_mut)
+    sim.addReaction(reactant='DG80', product=('R80','DG80'), rate = kalpha80)
+
     # Degradation of R80
     kdr_gal80 = 0.02888 # min^-1
     sim.addReaction(reactant='R80', product='', rate = kdr_gal80)

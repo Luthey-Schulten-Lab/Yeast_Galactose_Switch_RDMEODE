@@ -47,17 +47,14 @@ ap.add_argument('-delt', '--delt', required = True, help='communication timestep
 
 # The total simulation time
 ap.add_argument('-t', '--simTime', type=int, default=750, help='Simulation time (default: 750 min)')
-ap.add_argument('-tag', '--tag', type=str, default='', help='annotation tag for results.')
-ap.add_argument('-q', '--q', type=float, default=1.0, help='q for mutant type enhancement')
-ap.add_argument('-fmut', '--fmut', type=float, default=0.04, help='f_mut, original 0.04~0.06')
-ap.add_argument('-g80m', '--g80multiple', type=float, default=8.0, help='Multiple for G80-containing species counts')
+
 args = ap.parse_args()
 
 import datetime
 
-save_path = "output/" + datetime.datetime.now().strftime("%m%d%Y") + "/"
-output_file = "gal_cme_ode_gae_nonreg" + str(args.tag) + '_'+ str(args.GAE) + "_gia" + str(args.GAI) + "_rep" + str(args.replicates) + "_delta" + str(args.delt)+"_time" + str(args.simTime) + ".lm"
-log_file =  "log_cme_ode_gae_nonreg" + str(args.tag) +'_' + str(args.GAE) + "_gia" + str(args.GAI) + "_rep" + str(args.replicates) + "_delta" + str(args.delt) + "_time" + str(args.simTime) + ".log"
+save_path = "output/" + datetime.datetime.now().strftime("%d%m%Y") + "/"
+output_file = "gal_cme_ode_gae" + str(args.GAE) + "_gia" + str(args.GAI) + "_rep" + str(args.replicates) + "_delta" + str(args.delt)+"_time" + str(args.simTime) + ".lm"
+log_file =  "log_cme_ode_gae" + str(args.GAE) + "_gia" + str(args.GAI) + "_rep" + str(args.replicates) + "_delta" + str(args.delt) + "_time" + str(args.simTime) + ".log"
 
 print("pid for this program is:", os.getpid())
 
@@ -223,8 +220,7 @@ Gae = float(args.GAE)/(4.65e-8) # units in molec
 Part5: Add reactions for CME
 =============================================================='''
 from cme_rxns import transcription, translation, regulators_promoters, dimerization, g80region_swap, g3_rxns
-print(f"q is {args.q}, f_mut is {args.fmut}")
-transcription.getTranscriptionReactions_non_reg(sim, mutant_q=args.q, f_mut=args.fmut)
+transcription.getTranscriptionReactions_non_reg(sim)
 translation.getTranslationReactions(sim)
 regulators_promoters.getDNAPromoterReactions_non_reg(sim)
 dimerization.getDimerizationReactions(sim)
@@ -247,41 +243,6 @@ Part 6:Set the initial conditions for the ODE solver
 @param ode_species The list of "ODE species", added to the simulation object sequentially
 @param gai The concentration of intracellular galactose (mM)
 =============================================================='''
-def multiple_g80_species_counts(species_list, count_list, multiple):
-    """
-    Multiplies the counts for all species containing 'G80' in their name by the given multiple.
-    
-    Args:
-        species_list: List of species names
-        count_list: List of corresponding counts
-        multiple: Factor to multiply G80-containing species counts by
-        
-    Returns:
-        Modified count list with multiplied values for G80-containing species
-    """
-    # Create a copy of the count list to avoid modifying the original
-    modified_counts = count_list.copy()
-    
-    # Iterate through the species list
-    for i, species in enumerate(species_list):
-        # Check if 'G80' is the start of the species name
-        if species.startswith('G80'):
-            # Multiply the count for this species
-            modified_counts[i] = modified_counts[i] * multiple
-            print(f"Multiplied count for {species}: {count_list[i]} → {modified_counts[i]} (×{multiple})")
-    
-    return modified_counts
-def print_species_counts(species_name, original_count, rounded_count):
-    """
-    Prints the species name, original count, and rounded count.
-    
-    Args:
-        species_name: Name of the species
-        original_count: Original count before rounding
-        rounded_count: Count after rounding
-    """
-    print(f"Species: {species_name}, Original count: {original_count}, Rounded count: {rounded_count}")
-
 
 def setInitialCounts(sim,cme_species,gai):
         # gae can be added the as the input 
@@ -290,21 +251,15 @@ def setInitialCounts(sim,cme_species,gai):
         gai_molec = float(gai)/(4.65e-8)
 
         # The CME species counts
-        cme_count_list = [0.26, 0.33, 0.9, 0.4, 0.26, 1.18, 132.318563460887, 1156.91017704601, 4341.70321120979, 0, 0.15, 308.921734355756, 132.317774287091, 0.11, 0.11, 157.246650776274, 157.239961338382, 0, 64516129.03225806, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1, 0.0, 0.0, 1.0, 1, 0.0, 0.0, 0.0]
-        # cme_count_list = [0.26, 0.33, 0.9, 0.4, 0.26, 1.18, 132.318563460887, 1156.91017704601, 4341.70321120979, 0, 0.15, 308.921734355756, 132.317774287091, 0.11, 0.11, 157.246650776274, 157.239961338382, 0, 238709677.41935483, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
-        # Double the counts for G80-containing species
-        cme_count_list = multiple_g80_species_counts(cme_species, cme_count_list, args.g80multiple)
+        cme_count_list = [1, 1, 1, 1, 1, 1.18715948592467, 132.318563460887, 1156.91017704601, 4341.70321120979, 0, 1, 308.921734355756, 132.317774287091, 1, 1, 157.246650776274, 157.239961338382, 0, 64516129.03225806, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0]
+
         # The ODE species counts
         ode_count_list = [gai_molec,0,0,0,132.318563460887,1156.91017704601]
 
         # Add the particles for each species to the simulation (the cell) in integer form
-        # for i in range(len(cme_species)):
-        #     sim.addParticles(species=cme_species[i],count=int(round((cme_count_list[i]),1))) # All counts must be in integer form
         for i in range(len(cme_species)):
-            original_count = cme_count_list[i]
-            rounded_count = int(round(original_count))
-            print_species_counts(cme_species[i], original_count, rounded_count)
-            sim.addParticles(species=cme_species[i], count=rounded_count) 
+            sim.addParticles(species=cme_species[i],count=int(round((cme_count_list[i]),1))) # All counts must be in integer form
+
         # Return the list of initial ODE species counts to be used to initialize the hook solver
         return ode_count_list
 ode_counts = setInitialCounts(sim,cme_species,args.GAI)
@@ -314,7 +269,7 @@ try:
     sim.setHookInterval(delt)
 
     ## Set the write interval to the output file. (1 minute)
-    sim.setWriteInterval(delt)
+    sim.setWriteInterval(1.0)
 
 ## Hooking is connected to I/O
 except AttributeError:

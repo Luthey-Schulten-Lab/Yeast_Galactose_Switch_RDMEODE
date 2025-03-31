@@ -15,8 +15,3 @@ def getG80TransportReactions(sim):
 
     # G80d -> G80Cd (Transport of G80 from the nucleus into the cytoplasm)
     sim.addReaction(reactant='G80d',product='G80Cd',rate=Kr80)
-    # G80Cd -> G80d (Transport of G80 from the cytoplasm into the nucleus)
-    sim.addReaction(reactant='G80C',product='G80',rate=Kf80)
-
-    # G80d -> G80Cd (Transport of G80 from the nucleus into the cytoplasm)
-    sim.addReaction(reactant='G80',product='G80C',rate=Kr80)

@@ -5,9 +5,7 @@ The Dimerization reactions
 """
 
 def getDimerizationReactions(sim):
-    # Kfd = 0.001 # molec^-1 min^-1
-    # Krd = 100 # min^-1
-    # original results 
+
     Kfd = 100 # molec^-1 min^-1
     Krd = 0.001 # min^-1
     kdp_gal4 = 0.006931 # min^-1

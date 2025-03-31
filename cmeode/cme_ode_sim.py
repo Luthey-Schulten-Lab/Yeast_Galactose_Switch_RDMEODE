@@ -46,14 +46,14 @@ ap.add_argument('-delt', '--delt', required = True, help='communication timestep
 
 # The total simulation time
 ap.add_argument('-t', '--simTime', type=int, default=750, help='Simulation time (default: 750 min)')
-ap.add_argument('-tag', '--tag', type=str, default='', help='annotation tag for results.')
+
 args = ap.parse_args()
 
 import datetime
 
-save_path = "output/" + datetime.datetime.now().strftime("%m%d%Y") + "/"
-output_file = "gal_cme_ode_gae" + str(args.tag) +'_' + str(args.GAE) + "_gia" + str(args.GAI) + "_rep" + str(args.replicates) + "_delta" + str(args.delt)+"_time" + str(args.simTime) + ".lm"
-log_file =  "log_cme_ode_gae" + str(args.tag) +'_' + str(args.GAE) + "_gia" + str(args.GAI) + "_rep" + str(args.replicates) + "_delta" + str(args.delt) + "_time" + str(args.simTime) + ".log"
+save_path = "output/" + datetime.datetime.now().strftime("%d%m%Y") + "/"
+output_file = "gal_cme_ode_gae" + str(args.GAE) + "_gia" + str(args.GAI) + "_rep" + str(args.replicates) + "_delta" + str(args.delt)+"_time" + str(args.simTime) + ".lm"
+log_file =  "log_cme_ode_gae" + str(args.GAE) + "_gia" + str(args.GAI) + "_rep" + str(args.replicates) + "_delta" + str(args.delt) + "_time" + str(args.simTime) + ".log"
 
 print("pid for this program is:", os.getpid())
 
@@ -249,13 +249,14 @@ def setInitialCounts(sim,cme_species,gai):
         gai_molec = float(gai)/(4.65e-8)
 
         # The CME species counts
-        cme_count_list = [0.26, 0.33, 0.9, 0.4, 0.26, 1.18, 132.318563460887, 1156.91017704601, 4341.70321120979, 0, 0.15, 308.921734355756, 132.317774287091, 0.11, 0.11, 157.246650776274, 157.239961338382, 0, 238709677.41935483, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
+        cme_count_list = [1,1,1,1,1,1.18715948592467,132.318563460887,1156.91017704601,4341.70321120979,0,1,308.921734355756,132.317774287091,1,1,157.246650776274,157.239961338382,0,gai_molec,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0] 
+
         # The ODE species counts
         ode_count_list = [gai_molec,0,0,0,132.318563460887,1156.91017704601]
 
         # Add the particles for each species to the simulation (the cell) in integer form
         for i in range(0,37,1):
-            sim.addParticles(species=cme_species[i],count=int(round((cme_count_list[i])))) # All counts must be in integer form
+            sim.addParticles(species=cme_species[i],count=int(round((cme_count_list[i]),1))) # All counts must be in integer form
 
         # Return the list of initial ODE species counts to be used to initialize the hook solver
         return ode_count_list
@@ -265,8 +266,8 @@ try:
     ## Set the interval at which communication will occur
     sim.setHookInterval(delt)
 
-    ## Set the write interval to the output file. (same as hook interval)
-    sim.setWriteInterval(delt)
+    ## Set the write interval to the output file. (1 minute)
+    sim.setWriteInterval(1.0)
 
 ## Hooking is connected to I/O
 except AttributeError:
