@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
+
+# In[1]:
+
+
 '''build by Tianyu Wu v 1.10  : 
 1. fix several species error that might cause the error in simulation 
 1.1 DNA regulation use G4d, G80d for promoters
@@ -18,30 +22,19 @@ no signifcant change in the simulation, just a guarantee
 in v 1.12
 1.12 change the custom ODE solver to LSODA 
 1.12.2 add fixed gene location option
-1.12.3 fix gene location to be in the nucleoplasm and add a check if to make sure they actually inside
-1.12.4 reminder: the default location extract from the trajectory file is in the format of [z, y, x], 
-
-1.12.5 change to non-regulation case
-
+v1.12 ER 
+allow G2 to Diffuse through the ER
 in v 1.13
 1.13.1 change the region obstacle to 3 separate regions, add cell wall in as well. 
-1.13.2 change the GAL3 transcription q factor from 0.571429 to 1
-1.13.3 add f_mut to 0.04
-in v1.14
-1.14.1 support checkpoint start
-1.14.2 support memory usage check 
-1.14.3 support ribo_dummy added 
 '''
 # write a timer 
 import time
 import signal
 import sys
-import os
-import psutil
 start_time = time.time()
 
 IF_DGX = False # parameter to for quick conversion to use on DGX
-version = "1.14.3:wmtng"
+version = "1.12er_mt"
 # In[1]:
 import argparse
 parser = argparse.ArgumentParser(description='Accept three parameters: output index, simtime(min) and external galactose concentration(mM)')
@@ -50,11 +43,9 @@ parser.add_argument('-t', '--simtime',  type=float, default=60, help='simulation
 parser.add_argument('-g', '--galactose',  type=float, default=11.1, help='external galactose concentration')
 parser.add_argument('-gpus', '--gpus',  type=int, default=1, help='available gpus to use(default 1, use single gpu)')
 parser.add_argument('-tag', '--tag',  type=str, default='', help='tag for the output folder')
-parser.add_argument('-geo', '--geometry',  type=str, default='yeast-lattice.2.pkl.xz', help='geometry file name, default is yeast-lattice.2.pkl.xz')
+parser.add_argument('-geo', '--geometry',  type=str, default='lattice_ER_tunnels_data.pkl.xz', help='geometry file name, default is yeast-lattice.2.pkl.xz')
 parser.add_argument('-mt', '--max_time', type=float, default=1000, help='Maximum allowed simulation time in hours')
 parser.add_argument('-geloc', '--gene_location', type=str, default='random', help='location of the genes, default is random')
-parser.add_argument('-ckpt', '--checkpoint', type=str, default='', help='checkpoint file name, default is empty')
-
 # get the args
 args = parser.parse_args()
 output_order = args.index
@@ -64,20 +55,19 @@ gpus = args.gpus
 output_tag = args.tag
 geometry_file = args.geometry
 gene_location = args.gene_location
-checkpoint_file = args.checkpoint
 #get date in format yyyymmdd
 import datetime
 date = datetime.datetime.now().strftime("%Y%m%d")
 if IF_DGX == True:
     if gpus == 1:
-        output_folder = "workspace/yeast" + version + "_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +".lm"
+        output_folder = "workspace/yeastER" + version + "_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +".lm"
     else:
-        output_folder = "workspace/yeast" + version + "_multi_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +"_gpu"+ str(gpus) +".lm"
+        output_folder = "workspace/yeastER" + version + "_multi_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +"_gpu"+ str(gpus) +".lm"
 else:
     if gpus == 1:
-        output_folder = "yeast" + version + "_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +".lm"
+        output_folder = "yeastER" + version + "_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +".lm"
     else:
-        output_folder = "yeast" + version + "_multi_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +"_gpu"+ str(gpus) +".lm"
+        output_folder = "yeastER" + version + "_multi_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +"_gpu"+ str(gpus) +".lm"
 
 print("output_folder: ", output_folder)
 print("simtime: ", simtime)
@@ -93,17 +83,13 @@ from jLM.RegionBuilder import RegionBuilder
 import jLM
 
 
-# # Initialization and Spatial Geometry
-def print_memory_usage():
-    process = psutil.Process(os.getpid())
-    print(f"Memory usage: {process.memory_info().rss / 1024 / 1024} MB")
+# In[3]:
 
-# In[35]:
 
 if IF_DGX == True:
     latticeData = pickle.load(lzma.open("workspace/"+geometry_file, "rb"))
 else:
-    latticeData = pickle.load(lzma.open(geometry_file, "rb")) # 1.10 use the original lattice instead of .2
+    latticeData = pickle.load(lzma.open(geometry_file, "rb")) 
 
 siteMap = {n:i for i,n in enumerate(latticeData['names'])}
 def boolLattice(x):
@@ -114,117 +100,92 @@ cellWall = boolLattice("cellWall")
 nuclearEnvelope = boolLattice("nuclearEnvelope")
 mitochondria = boolLattice("mitochondria")
 vacuole = boolLattice("vacuole")
-ribosomes = boolLattice("ribosomes")
+cytoRibosomes = boolLattice("cytoRibosomes")
 membrane = boolLattice("plasmaMembrane")
 nucleus = boolLattice("nucleoplasm") | boolLattice("nuclearPores")
 cytoplasm = boolLattice("cytoplasm")
-'''support the dummy ribosome add'''
-if 'ribosome_dummy' in latticeData['names']:
-    print('dummy ribosomes region detected!Treated as obstacles.')
-    ribosome_dummy = boolLattice("ribosome_dummy")
-    
-'''read decimation'''
+endoplasmicReticulum = boolLattice("cecER") | boolLattice("tubER")
+pmaER =boolLattice("pmaER")
+erRibosomes = boolLattice("pmaRibosomes") | boolLattice("cecRibosomes") | boolLattice("tubRibosomes")
+# resolution decrease scale from cryoET
 decimation = latticeData['decimation']
 
 
-# In[36]:
+# In[4]:
+
+
 if gpus == 1: 
     siteType = "Int"
 else:
     siteType = "Byte"
 
-sim = RDMESim("Galactose switch, RDME/ODE hybrid",
+sim = RDMESim("Galactose switch ER, RDME/ODE hybrid",
               output_folder,
               latticeData['lattice'].shape,
               latticeData['latticeSpacing'],
               "extracellular",siteType)
 
-print("the shape of the lattice is: ", latticeData['lattice'].shape)
-# In[37]:
+
+# In[5]:
 
 
 B = RegionBuilder(sim)
-
-'''support the dummy ribosome add'''
-if 'ribosome_dummy' in latticeData['names']:
-        B.compose((sim.region('extracellular'), extracellular),
-            (sim.region('cellWall'), cellWall),
-            (sim.region('nuclearEnvelope'), nuclearEnvelope),
-            (sim.region('mitochondria'), mitochondria),
-            (sim.region('vacuole'), vacuole),
-            (sim.region('plasmaMembrane'), membrane),
-            (sim.region('cytoplasm'), cytoplasm),
-            (sim.region('nucleoplasm'), nucleus),
-            (sim.region('ribosomes'), ribosomes),
-            (sim.region('ribodummy'), ribosome_dummy)
-            )
-else:
-    B.compose((sim.region('extracellular'), extracellular),
-            (sim.region('cellWall'), cellWall),
-            (sim.region('nuclearEnvelope'), nuclearEnvelope),
-            (sim.region('mitochondria'), mitochondria),
-            (sim.region('vacuole'), vacuole),
-            (sim.region('plasmaMembrane'), membrane),
-            (sim.region('cytoplasm'), cytoplasm),
-            (sim.region('nucleoplasm'), nucleus),
-            (sim.region('ribosomes'), ribosomes))
-
-
-# abbreviation for object access
-
-# In[38]:
-
+B.compose((sim.region('extracellular'), extracellular),
+          (sim.region('cellWall'), cellWall),
+          (sim.region('nuclearEnvelope'), nuclearEnvelope),
+          (sim.region('mitochondria'), mitochondria),
+          (sim.region('vacuole'), vacuole),
+          (sim.region('plasmaMembrane'), membrane),
+          (sim.region('cytoplasm'), cytoplasm),
+          (sim.region('nucleoplasm'), nucleus),
+          (sim.region('cytoRibosomes'), cytoRibosomes),
+          (sim.region('endoplasmicReticulum'), endoplasmicReticulum),
+          (sim.region('pmaER'), pmaER),
+          (sim.region('erRibosomes'), erRibosomes))
 
 sp = sim.sp   # species object access
 reg = sim.reg # region object access
 rc = sim.rc   # rate constant object access
-dc = sim.dc   # diffusion constant object access
+dc = sim.dc   # diffusion constant object accessb
 
 
-# # Simulation parameters
-
-# In[39]:
+# In[6]:
 
 
+# define all necessary sim parameters
 sim.simulationTime = simtime * 60 # seconds
 sim.timestep = 50e-6 # seconds
 # mimic the old way to define the interval
-hook_interval = 1.0 # seconds
-write_interval = 1.0 # seconds
-sim.latticeWriteInterval= int(write_interval/sim.timestep) # .05s
-sim.speciesWriteInterval= int(write_interval/sim.timestep) # .05s
-sim.hookInterval= int(hook_interval/sim.timestep) #.05s
+interval = 1.0 # seconds
+sim.latticeWriteInterval= int(interval/sim.timestep) # .05s
+sim.speciesWriteInterval= int(interval/sim.timestep) # .05s
+sim.hookInterval= int(interval/sim.timestep) #.05s
 
 # initial conditions for external galactose 
 externalGal = externalGal_input * 1e-3 # M   
 # Number of ribosomes in total
-nRibosomes = np.sum(sim.siteLattice == reg.ribosomes.idx)
+ncytoRibosomes = np.sum(sim.siteLattice == reg.cytoRibosomes.idx)
+nERribosomes = np.sum(sim.siteLattice == reg.erRibosomes.idx)
+nRibosomes = ncytoRibosomes + nERribosomes
 # diffusion coefficients for mRNA
 # mRNADiffusion = 0.5e-12 # m^2/s
 mRNADiffusion = 0.05e-12 # number from sif 
+# proteinERDiffusion = 1e-12 # number agree with most exp papers
 
 
-
-# # Species Definitions
-
-# ## Reporter GFP
-
-# In[40]:
+# In[7]:
 
 
+# here we define all species needed 
 with sim.construct():
     sim.species('DGrep', texRepr='D_{rep}', annotation="Reporter gene (inactive)")
     sim.species('DGrep_G4d', texRepr='D_{rep}{:}G_{4D}', annotation="Reporter gene activated")
     sim.species('DGrep_G4d_G80d', texRepr='D_{rep}{:}G_{4D}{:}G_{80D}', annotation="Reporter gene repressed")
     sim.species('Rrep', texRepr='R_{rep}', annotation="Reporter mRNA")
     sim.species('Grep', texRepr='G_{rep}', annotation="Reporter GFP")
-    
-    
 
 
-# ## GAL1 (G1) metabolism/ degradation process
-
-# In[41]:
+# In[8]:
 
 
 with sim.construct():
@@ -235,9 +196,7 @@ with sim.construct():
     sim.species('G1', texRepr='G_{1}', annotation="Galactose metabolism protein")
 
 
-# ## GAL2(G2) transporter
-
-# In[42]:
+# In[9]:
 
 
 with sim.construct():
@@ -248,32 +207,19 @@ with sim.construct():
     sim.species('G2', texRepr='G_{2}', annotation="Galactose transport protein")
 
 
-# ## Gal3(regulatory protein)
-
-# In[43]:
+# In[10]:
 
 
-# with sim.construct():
-#     sim.species('DG3', texRepr='D_{G3}', annotation="Gal3 gene (inactive)")
-#     sim.species('DG3_G4d', texRepr='D_{G3}{:}G_{4D}', annotation="Gal3 gene activated")
-#     sim.species('DG3_G4d_G80d', texRepr='D_{G3}{:}G_{4D}{:}G_{80D}', annotation="Gal3 gene repressed")
-#     sim.species('R3', texRepr='R_{3}', annotation="Gal3 mRNA")
-#     sim.species('G3', texRepr='G_{3}', annotation="Gal3 protein")
-#     sim.species('G3i', texRepr='G_{3i}', annotation="activated Gal3 bound to galactose ")
-# no reg case
 with sim.construct():
-    sim.species('DG3', texRepr='D_{G3}', annotation="Gal3 gene with CYC1 bind")
-    # sim.species('DG3_G4d', texRepr='D_{G3}{:}G_{4D}', annotation="Gal3 gene activated")
-    # sim.species('DG3_G4d_G80d', texRepr='D_{G3}{:}G_{4D}{:}G_{80D}', annotation="Gal3 gene repressed")
+    sim.species('DG3', texRepr='D_{G3}', annotation="Gal3 gene (inactive)")
+    sim.species('DG3_G4d', texRepr='D_{G3}{:}G_{4D}', annotation="Gal3 gene activated")
+    sim.species('DG3_G4d_G80d', texRepr='D_{G3}{:}G_{4D}{:}G_{80D}', annotation="Gal3 gene repressed")
     sim.species('R3', texRepr='R_{3}', annotation="Gal3 mRNA")
     sim.species('G3', texRepr='G_{3}', annotation="Gal3 protein")
     sim.species('G3i', texRepr='G_{3i}', annotation="activated Gal3 bound to galactose ")
 
 
-
-# ## GAL4(G4)
-
-# In[44]:
+# In[11]:
 
 
 with sim.construct():
@@ -283,33 +229,20 @@ with sim.construct():
     sim.species('G4d', texRepr='G_{4D}', annotation="Gal4 dimer")
 
 
-# ## GAL80 (G80)
-
-# In[45]:
+# In[12]:
 
 
-# with sim.construct():
-#     sim.species('DG80', texRepr='D_{G80}', annotation="Gal80 gene (inactive)")
-#     sim.species('DG80_G4d', texRepr='D_{G80}{:}G_{4D}', annotation="Gal80 gene activated")
-#     sim.species('DG80_G4d_G80d', texRepr='D_{G80}{:}G_{4D}{:}G_{80D}', annotation="Gal80 gene repressed")
-#     sim.species('R80', texRepr='R_{80}', annotation="Gal80 mRNA")
-#     sim.species('G80', texRepr='G_{80}', annotation="Gal80 protein")
-#     sim.species('G80d', texRepr='G_{80D}', annotation="Gal80 dimer")
-#     sim.species('G80d_G3i', texRepr='G_{80D}{:}G_{3i}', annotation="Gal80 dimer bound to activated Gal3")
-# no reg case
 with sim.construct():
-    sim.species('DG80', texRepr='D_{G80}', annotation="Gal80 gene (with CYC1 bind)")
-    # sim.species('DG80_G4d', texRepr='D_{G80}{:}G_{4D}', annotation="Gal80 gene activated")
-    # sim.species('DG80_G4d_G80d', texRepr='D_{G80}{:}G_{4D}{:}G_{80D}', annotation="Gal80 gene repressed")
+    sim.species('DG80', texRepr='D_{G80}', annotation="Gal80 gene (inactive)")
+    sim.species('DG80_G4d', texRepr='D_{G80}{:}G_{4D}', annotation="Gal80 gene activated")
+    sim.species('DG80_G4d_G80d', texRepr='D_{G80}{:}G_{4D}{:}G_{80D}', annotation="Gal80 gene repressed")
     sim.species('R80', texRepr='R_{80}', annotation="Gal80 mRNA")
     sim.species('G80', texRepr='G_{80}', annotation="Gal80 protein")
     sim.species('G80d', texRepr='G_{80D}', annotation="Gal80 dimer")
     sim.species('G80d_G3i', texRepr='G_{80D}{:}G_{3i}', annotation="Gal80 dimer bound to activated Gal3")
 
 
-# ## Ribosomes Particles
-
-# In[46]:
+# In[13]:
 
 
 with sim.construct():
@@ -322,11 +255,10 @@ with sim.construct():
     sim.species('ribosomeGrep', texRepr='Ribosome{:}G_{rep}', annotation="Ribosome bound to reporter mRNA")
 
 
-# # 3. Reactions
-
-# In[47]:
+# In[14]:
 
 
+# reactions difined here
 cellVol = 3.57e-14 # L, cell size from Ramsey paper SI, haploid yeast
 nav = cellVol*6.022e23  # volume times Avogadro's number
 invMin2invSec = 1/60.0 # s^-1/min^-1
@@ -334,9 +266,7 @@ conv2ndOrder = invMin2invSec*nav # convert to s^-1*M^-1
 conv1stOrder = invMin2invSec # convert to s^-1
 
 
-# ## Dimerization
-
-# In[48]:
+# In[15]:
 
 
 with sim.construct():
@@ -348,9 +278,7 @@ with sim.construct():
     sim.reaction([sp.G80d], [sp.G80, sp.G80], rc.rd, annotation ="Gal80p/Gal80p dimer dissociation", regions=[reg.cytoplasm, reg.nucleoplasm])
 
 
-# ## DNA regulation
-
-# In[49]:
+# In[16]:
 
 
 with sim.construct():
@@ -400,14 +328,14 @@ with sim.construct():
     # G2 has 5 sites
     # G3, G80 have 1 site
     
-    ### no regulation for G3 and G80
-    dnas            = [sp.DG1           , sp.DG2       , sp.DGrep]
-    dna_gal4        = [sp.DG1_G4d       , sp.DG2_G4d   , sp.DGrep_G4d]
-    dna_gal4_gal80  = [sp.DG1_G4d_G80d, sp.DG2_G4d_G80d, sp.DGrep_G4d_G80d]
-    f_g4s           = [rc.f1_4          , rc.f1_5      , rc.f1_4]
-    r_g4s           = [rc.r1_4          , rc.r1_5      , rc.r1_4]
-    f_g4g80s        = [rc.f2_4          , rc.f2_5      , rc.f2_4]
-    r_g4g80s        = [rc.r2_4          , rc.r2_5      , rc.r2_4]
+    dnas            = [sp.DG1           , sp.DG2        , sp.DG3            ,  sp.DG80          , sp.DGrep]
+    # mrnas           = [sp.R1            , sp.R2         , sp.R3,  sp.R80, sp.Rrep]
+    dna_gal4        = [sp.DG1_G4d       , sp.DG2_G4d    , sp.DG3_G4d        ,  sp.DG80_G4d      , sp.DGrep_G4d]
+    dna_gal4_gal80  = [sp.DG1_G4d_G80d, sp.DG2_G4d_G80d , sp.DG3_G4d_G80d   , sp.DG80_G4d_G80d  , sp.DGrep_G4d_G80d]
+    f_g4s           = [rc.f1_4          , rc.f1_5       , rc.f1             , rc.f1             , rc.f1_4]
+    r_g4s           = [rc.r1_4          , rc.r1_5       , rc.r1             , rc.r1             , rc.r1_4]
+    f_g4g80s        = [rc.f2_4          , rc.f2_5       , rc.f2             , rc.f2             , rc.f2_4]
+    r_g4g80s        = [rc.r2_4          , rc.r2_5       , rc.r2             , rc.r2             , rc.r2_4]
     
     for dna, dna_gal4, dna_gal4_gal80, f_g4, r_g4, f_g4g80, r_g4g80 in zip(dnas, dna_gal4, dna_gal4_gal80, f_g4s, r_g4s, f_g4g80s, r_g4g80s):
         sim.reaction([dna, sp.G4d], [dna_gal4], f_g4, annotation="Gal4p binding to gene", regions=reg.nucleoplasm)
@@ -418,9 +346,7 @@ with sim.construct():
     
 
 
-# ## G3 activation
-
-# In[50]:
+# In[17]:
 
 
 with sim.construct():
@@ -441,18 +367,17 @@ with sim.construct():
     sim.reaction(sp.G80d_G3i, [], rc.dp_gal3gal80, annotation="Gal3p*:Gal80 degradation", regions=reg.cytoplasm)
 
 
+# In[18]:
+
+
 # ## Transcription
-
-# In[51]:
-
-# mutant is added here.
 with sim.construct():
     sim.rateConst("alpha1", 0.7379*conv1stOrder, order=1, annotation='GAL1 transcription')
     sim.rateConst("alpha2", 2.542*conv1stOrder, order=1, annotation='GAL2 transcription')
-    sim.rateConst("alpha3", 1.0*0.7465*0.04*conv1stOrder, order=1, annotation='GAL3 transcription')
+    sim.rateConst("alpha3", 0.571429*0.7465*conv1stOrder, order=1, annotation='GAL3 transcription')
     sim.rateConst("ir_gal4", 0.009902*conv1stOrder, order=1, annotation='GAL4 transcription')
     sim.rateConst("alpha_rep", 1.1440*conv1stOrder, order=1, annotation='GFP transcription')
-    sim.rateConst("alpha80", 0.6065*0.04*conv1stOrder, order=1, annotation='GAL80 transcription')
+    sim.rateConst("alpha80", 0.6065*conv1stOrder, order=1, annotation='GAL80 transcription')
 
     sim.rateConst("dr_gal1", 0.02236*conv1stOrder, order=1, annotation='GAL1 mRNA degradation')
     sim.rateConst("dr_gal2", 0.07702*conv1stOrder, order=1, annotation='GAL2 mRNA degradation')
@@ -463,25 +388,19 @@ with sim.construct():
     
     transcription_rates = [rc.alpha1,   rc.alpha2,  rc.alpha3,  rc.ir_gal4, rc.alpha_rep,   rc.alpha80]
     decay_rates         = [rc.dr_gal1,  rc.dr_gal2, rc.dr_gal3, rc.dr_gal4, rc.dr_rep,      rc.dr_gal80]
-    genes               = [sp.DG1_G4d,  sp.DG2_G4d, sp.DG3,     sp.DG4,     sp.DGrep_G4d,   sp.DG80]
+    genes               = [sp.DG1_G4d,  sp.DG2_G4d, sp.DG3_G4d, sp.DG4,     sp.DGrep_G4d,   sp.DG80_G4d]
     mrnas               = [sp.R1,       sp.R2,      sp.R3,      sp.R4,      sp.Rrep,        sp.R80]
     
     for trans_rate, decay_rate, gene, mrna in zip(transcription_rates, decay_rates, genes, mrnas):
         sim.reaction([gene], [gene, mrna], trans_rate, regions=reg.nucleoplasm)
-        sim.reaction([mrna], [], decay_rate, regions=[reg.nucleoplasm, reg.cytoplasm, reg.ribosomes])
+        sim.reaction([mrna], [], decay_rate, regions=[reg.nucleoplasm, reg.cytoplasm, reg.cytoRibosomes, reg.erRibosomes])
 
 
-# transcription -2, dummy related transcription and degradation.
-
-# ## Translation
-
-# Ribosome/mRNA association rate. For the diffusive propensity to be equal to the reaction propensity, we need
-# $$ k = 2000DN_A\lambda.$$
-# We will choose the reaction propensity to be 0.2 of the diffsive propensity so that immediate reassociation happens 1 of 5 dissociation events.
-
-# In[52]:
+# In[19]:
 
 
+# translation 
+## we need to consider both cytoplasm and ER ribosomes
 with sim.construct():
     #tlInitDet = 100e6 # 10.1016/j.molcel.2006.02.014 [eco]
     tlInitDet = 0.2 * 2000 * mRNADiffusion * sim.NA * sim.latticeSpacing
@@ -510,42 +429,33 @@ with sim.construct():
     
     for mrna, translatingRibosomes, protein, ktl, dcy, mdcy in zip(mrnas, translatingRibosomes, prots, ktls, dcys, mdcys):
         #association
-        sim.reaction([sp.ribosome, mrna], [translatingRibosomes], rc.rib_assoc, regions=reg.ribosomes)
+        sim.reaction([sp.ribosome, mrna], [translatingRibosomes], rc.rib_assoc, regions=[reg.cytoplasm, reg.erRibosomes])
         #translation
-        sim.reaction([translatingRibosomes], [sp.ribosome, mrna, protein], ktl, regions=reg.ribosomes)
+        sim.reaction([translatingRibosomes], [sp.ribosome, mrna, protein], ktl, regions=[reg.cytoplasm, reg.erRibosomes])
         #degradation in association form
-        sim.reaction([translatingRibosomes], [sp.ribosome], mdcy, regions=reg.ribosomes)
+        sim.reaction([translatingRibosomes], [sp.ribosome], mdcy, regions=[reg.cytoplasm, reg.erRibosomes])
     
-    
 
 
-# -3, dummy rna association, translation and degradation
-
-# ## Protein degradation(out of ribosome)
-
-# In[53]:
+# In[20]:
 
 
+## protein degradation
 with sim.construct():
-    deg_compartments =         [[reg.ribosomes, reg.cytoplasm], 
-                                [reg.ribosomes, reg.cytoplasm, reg.plasmaMembrane], 
-                                [reg.ribosomes, reg.cytoplasm], 
-                                [reg.ribosomes, reg.cytoplasm, reg.nucleoplasm], 
-                                [reg.ribosomes, reg.cytoplasm], 
-                                [reg.ribosomes, reg.cytoplasm, reg.nucleoplasm]]
+    deg_compartments =         [[reg.cytoRibosomes, reg.erRibosomes, reg.cytoplasm],  # G1
+                                [reg.cytoRibosomes, reg.erRibosomes, reg.cytoplasm, reg.plasmaMembrane],  # G2
+                                [reg.cytoRibosomes, reg.erRibosomes, reg.cytoplasm],  # G3
+                                [reg.cytoRibosomes, reg.erRibosomes, reg.cytoplasm, reg.nucleoplasm], 
+                                [reg.cytoRibosomes, reg.erRibosomes, reg.cytoplasm], 
+                                [reg.cytoRibosomes, reg.erRibosomes, reg.cytoplasm, reg.nucleoplasm]]
     for protein, decay_rate, region in zip(prots, dcys, deg_compartments):
         sim.reaction([protein], [], decay_rate, regions=region)
 
 
-# In[54]:
+# ## inital counts
 
+# In[21]:
 
-# sim.showReactions()
-
-
-# # Initial conditions
-
-# In[55]:
 
 if IF_DGX == True:
     initMolec = pickle.load(open("/workspace/ysZeroGAE.pkl", "rb"))
@@ -557,244 +467,222 @@ def initMolecules(x):
     # convert molecules/unit volume to molecues
     counts = int(initMolec[x]*volScale)
     return counts
-if checkpoint_file == "":
-    # place all genes randomly in the nucleoplasm
-    if gene_location == "random":
-        print("gene location random")
-        print("This is a non regulation model, DG3 and DG80 are not regulated, Mutant Ramsey example")
-        # initial states of DG1, DG2, DGrep
-        # non regulation , DG3 and DG80 are not regulated
-        for b in ["DG1", "DG2", "DGrep"]:
-            ops = [b+x for x in ["", "_G4d", "_G4d_G80d"]]
-            spName = max(ops, key=lambda x:initMolec[x])
-            print("{} in state {}".format(b, spName))
-            sim.species(spName).placeNumberInto(reg.nucleoplasm, 1)
-        # change the dafult way of placing all genes into activated state
-        # sp.DG1_G4d.placeNumberInto(reg.nucleoplasm, 1)
-        # print("{} in state {}".format("Gene1", "DG1_G4d"))
-        # sp.DG2_G4d.placeNumberInto(reg.nucleoplasm, 1)
-        # print("{} in state {}".format("Gene2", "DG2_G4d"))  
-        # sp.DG3_G4d.placeNumberInto(reg.nucleoplasm, 1)
-        # print("{} in state {}".format("Gene3", "DG3_G4d"))
-        # sp.DG80_G4d.placeNumberInto(reg.nucleoplasm, 1)
-        # print("{} in state {}".format("Gene80", "DG80_G4d"))
-        # sp.DGrep_G4d.placeNumberInto(reg.nucleoplasm, 1)
-        # print("{} in state {}".format("GeneRep", "DGrep_G4d"))
-        # this is the original code 
-        sp.DG4.placeNumberInto(reg.nucleoplasm, 1)
-        print("{} in state {}".format("Gene4", "DG4"))
-        sp.DG3.placeNumberInto(reg.nucleoplasm, 1)
-        print("{} in state {}".format("Gene3", "DG3"))
-        sp.DG80.placeNumberInto(reg.nucleoplasm, 1)
-        print("{} in state {}".format("Gene80", "DG80"))
-    else:
-        print("gene location fixed")
-        # dna_gal4_gal80  = [sp.DG1_G4d_G80d, sp.DG2_G4d_G80d , sp.DG3_G4d_G80d   , sp.DG80_G4d_G80d  , sp.DGrep_G4d_G80d]
-        # check if x, y, z are in the nucleoplasm
-        
-        # Define gene locations
-        gene_locations_0823_traj4 = {
-            "DGrep_G4d_G80d": [117, 86, 133],
-            "DG1_G4d_G80d": [132, 90, 90],
-            "DG2_G4d_G80d": [116, 73, 132],
-            "DG3_G4d_G80d": [111, 58, 100],
-            "DG80_G4d_G80d": [132, 94, 115],
-            "DG4": [126, 61, 115]
-        }
 
-        gene_locations_0823_traj3 = {
-            "DGrep_G4d_G80d": [137, 64, 137],
-            "DG1_G4d_G80d": [128, 71, 123],
-            "DG2_G4d_G80d": [144, 74, 120],
-            "DG3_G4d_G80d": [119, 82, 110],
-            "DG80_G4d_G80d": [135, 90, 85],
-            "DG4": [109, 90, 120]
-        }
-        # Get nucleoplasm coordinates
-        nucleoplasm_coords = set(map(tuple, np.argwhere(sim.siteLattice == reg.nucleoplasm.idx)))
-        if gene_location == "0823_traj4":
-            # Check each gene location
-            for gene, loc in gene_locations_0823_traj4.items():
-                if tuple(loc) in nucleoplasm_coords:
-                    print(f"{gene} is inside the nucleoplasm")
-                    # Place the gene at the specified location
-                    sim.placeNumber(sp=getattr(sp, gene), x=loc[0], y=loc[1], z=loc[2], n=1)
-                else:
-                    print(f"{gene} is not inside the nucleoplasm")
-                    print(tuple(loc))
-        elif gene_location == "0823_traj3":
-            # Check each gene location
-            for gene, loc in gene_locations_0823_traj3.items():
-                if tuple(loc) in nucleoplasm_coords:
-                    print(f"{gene} is inside the nucleoplasm")
-                    # Place the gene at the specified location
-                    sim.placeNumber(sp=getattr(sp, gene), x=loc[0], y=loc[1], z=loc[2], n=1)
-                else:
-                    print(f"{gene} is not inside the nucleoplasm")
-                    print(tuple(loc))
-        else:
-            print(f"gene location not recognized: {gene_location}")
 
-    # place proteins/ metabolites
-    sp.G1.placeNumberInto(reg.cytoplasm, initMolecules("G1"))
-    print("G1 in cytoplasm: {}".format(initMolecules("G1")))
-    sp.G2.placeNumberInto(reg.plasmaMembrane, initMolecules("G2"))
-    print("G2 in plasma membrane: {}".format(initMolecules("G2")))
-    sp.G3.placeNumberInto(reg.cytoplasm, initMolecules("G3"))
-    print("G3 in cytoplasm: {}".format(initMolecules("G3")))
-    sp.G4d.placeNumberInto(reg.nucleoplasm, initMolecules("G4d"))
-    print("G4d in nucleoplasm: {}".format(initMolecules("G4d")))
-    sp.Grep.placeNumberInto(reg.cytoplasm, initMolecules("Grep"))
-    print("Grep in cytoplasm: {}".format(initMolecules("Grep")))
+# In[22]:
 
-    # place G80
-    # G80 is placed in the cytoplasm and nucleoplasm, separated by relative volume
-    cscl = reg.cytoplasm.volume/(reg.cytoplasm.volume+reg.nucleoplasm.volume)
-    totM = initMolecules("G80C") + initMolecules("G80")
-    totD = initMolecules("G80Cd") + initMolecules("G80d")
-    sp.G80.placeNumberInto(reg.cytoplasm, int(cscl*totM))
-    sp.G80.placeNumberInto(reg.nucleoplasm, int((1-cscl)*totM))
-    sp.G80d.placeNumberInto(reg.cytoplasm, int(cscl*totD))
-    sp.G80d.placeNumberInto(reg.nucleoplasm, int((1-cscl)*totD))
-    print("G80 in cytoplasm: {}, in nucleoplasm: {}".format(int(cscl*totM), int((1-cscl)*totM)))
-    print("G80d in cytoplasm: {}, in nucleoplasm: {}".format(int(cscl*totD), int((1-cscl)*totD)))
 
-    # place ribosome particles in ribosomes region
-
-    for x, y, z in np.argwhere(sim.siteLattice == reg.ribosomes.idx):
-        sp.ribosome.placeParticle(x, y, z, 1)
-
-    print("ribosomes number:", np.sum(sim.siteLattice == reg.ribosomes.idx))
+if gene_location == "random":
+    print("gene location random")
+    for b in ["DG1", "DG2", "DG3", "DG80", "DGrep"]:
+        ops = [b+x for x in ["", "_G4d", "_G4d_G80d"]]
+        spName = max(ops, key=lambda x:initMolec[x])
+        print("{} in state {}".format(b, spName))
+        sim.species(spName).placeNumberInto(reg.nucleoplasm, 1)
+    # change the dafult way of placing all genes into activated state
+    # sp.DG1_G4d.placeNumberInto(reg.nucleoplasm, 1)
+    # print("{} in state {}".format("Gene1", "DG1_G4d"))
+    # sp.DG2_G4d.placeNumberInto(reg.nucleoplasm, 1)
+    # print("{} in state {}".format("Gene2", "DG2_G4d"))  
+    # sp.DG3_G4d.placeNumberInto(reg.nucleoplasm, 1)
+    # print("{} in state {}".format("Gene3", "DG3_G4d"))
+    # sp.DG80_G4d.placeNumberInto(reg.nucleoplasm, 1)
+    # print("{} in state {}".format("Gene80", "DG80_G4d"))
+    # sp.DGrep_G4d.placeNumberInto(reg.nucleoplasm, 1)
+    # print("{} in state {}".format("GeneRep", "DGrep_G4d"))
+    # this is the original code 
+    sp.DG4.placeNumberInto(reg.nucleoplasm, 1)
+    print("{} in state {}".format("Gene4", "DG4"))
 else:
-    print(f"using checkpoint file:{checkpoint_file}")
-    # start from the last checkpoint file
-    if os.path.exists(checkpoint_file):
-        print(f"start from the last checkpoint file{checkpoint_file}")
-        try:
-            sim.copyParticleLattice(checkpoint_file, replicate=1, frame=-1)
-        except Exception as e:
-            raise RuntimeError(f"Failed to load checkpoint file {checkpoint_file}. Error: {str(e)}")
-    else:
-        raise FileNotFoundError(f"Checkpoint file not found: {checkpoint_file}. Cannot restart simulation.")
-
-# # Diffusion Coefficients
-
-# In[56]:
-
-
-with sim.construct():
-    sim.transitionRate(None, None, None, sim.diffusionZero)
+    print("gene location fixed")
+    # dna_gal4_gal80  = [sp.DG1_G4d_G80d, sp.DG2_G4d_G80d , sp.DG3_G4d_G80d   , sp.DG80_G4d_G80d  , sp.DGrep_G4d_G80d]
+    sim.placeNumber(sp=sp.DGrep_G4d_G80d, x=133, y=86, z=117, n=1)
+    sim.placeNumber(sp=sp.DG1_G4d_G80d, x=90, y=90, z=132, n=1)
+    sim.placeNumber(sp=sp.DG2_G4d_G80d, x=132, y=73, z=116, n=1)
+    sim.placeNumber(sp=sp.DG3_G4d_G80d, x=100, y=58, z=111, n=1)
+    sim.placeNumber(sp=sp.DG80_G4d_G80d, x=115, y=94, z=132, n=1)
+    print("{} in state {}".format("GeneRep", "DGrep_G4d_G80d"))
+    print("{} in state {}".format("Gene1", "DG1_G4d_G80d"))
+    print("{} in state {}".format("Gene2", "DG2_G4d_G80d"))
+    print("{} in state {}".format("Gene3", "DG3_G4d_G80d"))
+    print("{} in state {}".format("Gene80", "DG80_G4d_G80d"))
+    sim.placeNumber(sp=sp.DG4, x=126, y=61, z=115, n=1)
+    print("{} in state {}".format("Gene4", "DG4"))
 
 
-# ## DNA
-# Fix DNA in the location:
-
-# In[57]:
+# In[23]:
 
 
-with sim.construct():
-    for sps in sim.speciesList.matchRegex("D.*"):
+# place proteins/ metabolites
+
+sp.G1.placeNumberInto(reg.cytoplasm, initMolecules("G1"))
+print("G1 in cytoplasm: {}".format(initMolecules("G1")))
+sp.G2.placeNumberInto(reg.plasmaMembrane, initMolecules("G2"))
+print("G2 in plasma membrane: {}".format(initMolecules("G2")))
+sp.G3.placeNumberInto(reg.cytoplasm, initMolecules("G3"))
+print("G3 in cytoplasm: {}".format(initMolecules("G3")))
+sp.G4d.placeNumberInto(reg.nucleoplasm, initMolecules("G4d"))
+print("G4d in nucleoplasm: {}".format(initMolecules("G4d")))
+sp.Grep.placeNumberInto(reg.cytoplasm, initMolecules("Grep"))
+print("Grep in cytoplasm: {}".format(initMolecules("Grep")))
+
+# place G80
+# G80 is placed in the cytoplasm and nucleoplasm, separated by relative volume
+cscl = reg.cytoplasm.volume/(reg.cytoplasm.volume+reg.nucleoplasm.volume)
+totM = initMolecules("G80C") + initMolecules("G80")
+totD = initMolecules("G80Cd") + initMolecules("G80d")
+sp.G80.placeNumberInto(reg.cytoplasm, int(cscl*totM))
+sp.G80.placeNumberInto(reg.nucleoplasm, int((1-cscl)*totM))
+sp.G80d.placeNumberInto(reg.cytoplasm, int(cscl*totD))
+sp.G80d.placeNumberInto(reg.nucleoplasm, int((1-cscl)*totD))
+print("G80 in cytoplasm: {}, in nucleoplasm: {}".format(int(cscl*totM), int((1-cscl)*totM)))
+print("G80d in cytoplasm: {}, in nucleoplasm: {}".format(int(cscl*totD), int((1-cscl)*totD)))
+
+
+# In[24]:
+
+
+for x, y, z in np.argwhere(sim.siteLattice == reg.cytoRibosomes.idx):
+    sp.ribosome.placeParticle(x, y, z, 1)
+
+for x, y, z in np.argwhere(sim.siteLattice == reg.erRibosomes.idx):
+    sp.ribosome.placeParticle(x, y, z, 1)
+
+print("ribosomes number:", np.sum(sim.siteLattice == reg.cytoRibosomes.idx) + np.sum(sim.siteLattice == reg.erRibosomes.idx))
+
+
+
+# ## diffusion
+
+# In[28]:
+
+
+reg
+
+
+# In[26]:
+
+
+sim.transitionRate(None, None, None, sim.diffusionZero)
+
+
+# In[27]:
+
+
+#genes
+for sps in sim.speciesList.matchRegex("D.*"):
         sps.diffusionRate(None, sim.diffusionZero)
 
 
-# ## mRNA 
-
-# In[58]:
+# In[29]:
 
 
-with sim.construct():
-    sim.diffusionConst("mrna", mRNADiffusion, texRepr=r'D_{mRNA}', annotation='Generic mRNA')
+#mRNAs
+# 1. we allow all mRNAs to diffuse into cytoplasm, cytoRibosomes and get translated
+#  this included R2 
 
-    for mrna in sim.speciesList.matchRegex("R.*"):
-        sim.transitionRate(mrna, reg.nucleoplasm, reg.cytoplasm, dc.mrna)
-        sim.transitionRate(mrna, reg.cytoplasm, reg.nucleoplasm, sim.diffusionZero)
-        sim.transitionRate(mrna, reg.nucleoplasm, reg.nucleoplasm, dc.mrna)
-        sim.transitionRate(mrna, reg.cytoplasm, reg.cytoplasm, dc.mrna)
-        sim.transitionRate(mrna, reg.ribosomes, reg.ribosomes, dc.mrna)
-        sim.transitionRate(mrna, reg.ribosomes, reg.cytoplasm, dc.mrna)
-        sim.transitionRate(mrna, reg.cytoplasm, reg.ribosomes, dc.mrna)
+sim.diffusionConst("mrna", mRNADiffusion, texRepr=r'D_{mRNA}', annotation='Generic mRNA')
 
-
-# ## Ribosome occlusion
-# after proteins get translated, it can only diffuse out of ribosomes, cant get back.
-
-# In[59]:
-
-
-with sim.construct():
-    sim.diffusionConst("prot", 1e-12, texRepr=r'D_{prot}', annotation='Generic protein')
-    for sps in [sp.G1, sp.G2, sp.G3, sp.G3i, sp.G4, sp.G4d, sp.G80, sp.G80d, sp.G80d_G3i, sp.Grep]:
-        sim.transitionRate(sps, reg.cytoplasm, reg.cytoplasm, dc.prot)
-        sim.transitionRate(sps, reg.ribosomes, reg.cytoplasm, sim.diffusionFast)
-        sim.transitionRate(sps, reg.cytoplasm, reg.ribosomes, sim.diffusionZero)
+for mrna in sim.speciesList.matchRegex("R.*"):
+    #m RNA out of nucleoplasm
+    sim.transitionRate(mrna, reg.nucleoplasm, reg.cytoplasm, dc.mrna)
+    sim.transitionRate(mrna, reg.cytoplasm, reg.nucleoplasm, sim.diffusionZero)
+    sim.transitionRate(mrna, reg.nucleoplasm, reg.nucleoplasm, dc.mrna)
+    sim.transitionRate(mrna, reg.cytoplasm, reg.cytoplasm, dc.mrna)
+    # in ribosomes
+    sim.transitionRate(mrna, reg.cytoRibosomes, reg.cytoRibosomes, dc.mrna)
+    sim.transitionRate(mrna, reg.cytoRibosomes, reg.cytoplasm, dc.mrna)
+    sim.transitionRate(mrna, reg.cytoplasm, reg.cytoRibosomes, dc.mrna)
+    
+# 2. we only allow R2 to diffuse into erRibosomes
+sim.transitionRate(sp.R2, reg.cytoplasm, reg.erRibosomes, dc.mrna)
+sim.transitionRate(sp.R2, reg.erRibosomes, reg.cytoplasm, dc.mrna)
+sim.transitionRate(sp.R2, reg.erRibosomes, reg.erRibosomes, dc.mrna)
+# dont allow R2 to diffuse into ER
 
 
-# ## Transcription Factors(G4, G80)
-# 
-# allow them to diffuse into the nucleoplasm, and diffuse in the nucleoplasm
-
-# In[60]:
 
 
-with sim.construct():
-    for sps in [sp.G4, sp.G4d, sp.G80, sp.G80d]:
-        sim.transitionRate(sps, reg.nucleoplasm, reg.nucleoplasm, dc.prot)
-        sim.transitionRate(sps, reg.nucleoplasm, reg.cytoplasm, dc.prot)
-        sim.transitionRate(sps, reg.cytoplasm, reg.nucleoplasm, dc.prot)
-
-print("fast diffsuion rate is ", sim.diffusionFast.value)
-# sys.exit(0)
-# ## cytoplasmic protein
-# 
-# prevent them diffuse into nucleoplasm
-
-# In[61]:
+# In[31]:
 
 
-with sim.construct():
-    for sps in [sp.G1, sp.G2, sp.G3, sp.G3i, sp.G80d_G3i, sp.Grep]:
-        sim.transitionRate(sps, reg.cytoplasm, reg.nucleoplasm, sim.diffusionZero) 
+## Proteins 
+# if G2 get translated from cytoRibosomes, it will be in cytoplasm
+sim.diffusionConst("prot", 1e-12, texRepr=r'D_{prot}', annotation='Generic protein')
+sim.diffusionConst("ribo", 3e-13, texRepr=r'D_{ribosome}', annotation='Generic ribosome')
+for sps in [sp.G1, sp.G2, sp.G3, sp.G3i, sp.G4, sp.G4d, sp.G80, sp.G80d, sp.G80d_G3i, sp.Grep]:
+    # allow diffusion in the cytoplasm
+    sim.transitionRate(sps, reg.cytoplasm, reg.cytoplasm, dc.prot)
+    # we allow proteins generated in cytoRibosomes to diffuse into both cytoplasm and ER
+    sim.transitionRate(sps, reg.cytoRibosomes, reg.cytoplasm, sim.diffusionFast)
+    
+    sim.transitionRate(sps, reg.cytoplasm, reg.cytoRibosomes, sim.diffusionZero)
 
 
-# ## Transporter
+# we only allow R2 to diffuse through ER membrane as membrane protein
+sim.transitionRate(sp.G2, reg.endoplasmicReticulum, reg.endoplasmicReticulum, sim.diffusionFast)
+# mimic the diffusion of R2-ribosome complex to rought ER
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3694300/ 
+sim.transitionRate(sp.G2, reg.cytoRibosomes, reg.endoplasmicReticulum, dc.ribo)
 
-# once diffuse into the membrane, can not get out.
-
-# In[62]:
-
-
-with sim.construct():
-    sim.transitionRate(sp.G2, reg.cytoplasm, reg.plasmaMembrane, dc.prot)
-    sim.transitionRate(sp.G2, reg.plasmaMembrane, reg.cytoplasm, sim.diffusionZero)
-    sim.diffusionConst("mem", 0.01e-12, texRepr=r'D_{mem}', annotation='Generic protein on membrane')
-
-    # sp.G2.diffusionRate(reg.plasmaMembrane, dc.mem)
-    sim.transitionRate(sp.G2, reg.plasmaMembrane, reg.plasmaMembrane, dc.mem)
-
-
-# ## Ribosomes
-# 
-# not moving, stay in the corresponding cube
-
-# In[63]:
+# erRibosomes, only allow protein to diffuse into ER
+sim.transitionRate(sp.G2, reg.erRibosomes, reg.endoplasmicReticulum, sim.diffusionFast)
+sim.transitionRate(sp.G2, reg.endoplasmicReticulum, reg.erRibosomes, sim.diffusionZero)
+sim.transitionRate(sp.G2, reg.endoplasmicReticulum, reg.cytoRibosomes, sim.diffusionZero)
+# since we separate the pmaER and rest of ER, we need to allow G2 diffuse across ERs
+# and further allow it to get diffuse out of ER
+sim.transitionRate(sp.G2, reg.endoplasmicReticulum, reg.pmaER, sim.diffusionFast)
+sim.transitionRate(sp.G2, reg.pmaER, reg.endoplasmicReticulum, sim.diffusionZero)
+sim.transitionRate(sp.G2, reg.pmaER, reg.cytoplasm, sim.diffusionFast)
+# since we dont have vesicle to carry G2 from pmaER to membrane, we just allow it to diffuse
+# back and forth right now, in case it get out of in the side of pmaER far from plasma membrane
+sim.transitionRate(sp.G2, reg.cytoplasm, reg.pmaER, sim.diffusionFast)
 
 
-with sim.construct():
-    for sps in sim.speciesList.matchRegex("ribosome.*"):
-        sim.transitionRate(sps, None, None, sim.diffusionZero)
+
+# In[32]:
 
 
-# # RDME-ODE hybrid
+# TF
+for sps in [sp.G4, sp.G4d, sp.G80, sp.G80d]:
+    sim.transitionRate(sps, reg.nucleoplasm, reg.nucleoplasm, dc.prot)
+    sim.transitionRate(sps, reg.nucleoplasm, reg.cytoplasm, dc.prot)
+    sim.transitionRate(sps, reg.cytoplasm, reg.nucleoplasm, dc.prot)
 
-# In[64]:
+
+# In[33]:
 
 
-# import pyximport
-# pyximport.install(setup_args={ "include_dirs":np.get_include()})
-# import sys
-# if IF_DGX == True:
-#     sys.path.append("/workspace")
-# from ode import RHS
+# non-TF  protein, dont allow them diffuse into nucleoplasm
+for sps in [sp.G1, sp.G2, sp.G3, sp.G3i, sp.G80d_G3i, sp.Grep]:
+    sim.transitionRate(sps, reg.cytoplasm, reg.nucleoplasm, sim.diffusionZero) 
+
+
+# In[34]:
+
+
+# membrane protein
+sim.transitionRate(sp.G2, reg.cytoplasm, reg.plasmaMembrane, dc.prot)
+sim.transitionRate(sp.G2, reg.pmaER, reg.plasmaMembrane, dc.prot)
+sim.transitionRate(sp.G2, reg.plasmaMembrane, reg.cytoplasm, sim.diffusionZero)
+sim.diffusionConst("mem", 0.01e-12, texRepr=r'D_{mem}', annotation='Generic protein on membrane')
+
+# sp.G2.diffusionRate(reg.plasmaMembrane, dc.mem)
+sim.transitionRate(sp.G2, reg.plasmaMembrane, reg.plasmaMembrane, dc.mem)
+
+
+# In[35]:
+
+
+for sps in sim.speciesList.matchRegex("ribosome.*"):
+    sim.transitionRate(sps, None, None, sim.diffusionZero)
+
+
+# ## RMDE-ODE hybrid
+
+# In[ ]:
+
+
 import json
 import scipy.integrate as spi
 # In[65]:
@@ -858,39 +746,14 @@ class OdeRdmeHybridSolver:
         self.save_ode_data_handle = open(self.save_ode_data_file, "w")  # Open in write mode to start fresh
     
     def copyInitialConditions(self, cts):
-        if checkpoint_file == "":
-            # initialization will count all G1 and G2 in ODE
-            y = np.zeros(len(self.odeSpNames))
-            y[self.odeSpIndex("GAI")] = 0
-            y[self.odeSpIndex("G1")] = cts['countBySpecies'][self.rdme.sp.G1]/self.NAV 
-            y[self.odeSpIndex("G1GAI")] = 0
-            y[self.odeSpIndex("G2")] = cts['countBySpecies'][self.rdme.sp.G2]/self.NAV
-            y[self.odeSpIndex("G2GAE")] = 0
-            y[self.odeSpIndex("G2GAI")] = 0
-        else:
-            print(f"using checkoutpoint:{checkpoint_file}")
-            checkpoint_ode = checkpoint_file + "_ode.jsonl"
-           
-            # Get last frame from ODE JSONL
-            with open(checkpoint_ode, 'r') as f:
-                last_line = None
-                for line in f:
-                    last_line = line
-                
-                if last_line is None:
-                    raise RuntimeError(f"ODE checkpoint file {checkpoint_ode} is empty")
-                
-                last_ode_state = json.loads(last_line.strip())
-                if 'species' not in last_ode_state:
-                    raise RuntimeError(f"Invalid ODE state format in {checkpoint_ode}")
-                
-                # Initialize y from the last ODE state
-                y = np.zeros(len(self.odeSpNames))
-                for i, name in enumerate(self.odeSpNames):
-                    y[self.odeSpIndex(name)] = last_ode_state['species'][name]
-                
-                print(f"Initialized ODE state from time {last_ode_state['time']}")
-        
+        # initialization will count all G1 and G2 in ODE
+        y = np.zeros(len(self.odeSpNames))
+        y[self.odeSpIndex("GAI")] = 0
+        y[self.odeSpIndex("G1")] = cts['countBySpecies'][self.rdme.sp.G1]/self.NAV 
+        y[self.odeSpIndex("G1GAI")] = 0
+        y[self.odeSpIndex("G2")] = cts['countBySpecies'][self.rdme.sp.G2]/self.NAV
+        y[self.odeSpIndex("G2GAE")] = 0
+        y[self.odeSpIndex("G2GAI")] = 0
         self.boundGal = self.rdmeGal(cts)
         return y
     
@@ -946,7 +809,6 @@ class OdeRdmeHybridSolver:
   
                    
     def hookSimulation(self, t, lattice):
-        print_memory_usage()
         start_time_hook = time.time()  # Start timer for this hook call
         
         # this is for the hook simulation 

@@ -26,7 +26,6 @@ in v1.14
 1.14.1 support restart from the last checkpoint
 1.14.2 support memorycheck
 1.14.3 support ribo_dummy added 
-1.14.4 support wild type simulation
 '''
 # write a timer 
 import time
@@ -49,7 +48,6 @@ parser.add_argument('-geo', '--geometry',  type=str, default='yeast-lattice.2.pk
 parser.add_argument('-mt', '--max_time', type=float, default=1000, help='Maximum allowed simulation time in hours')
 parser.add_argument('-geloc', '--gene_location', type=str, default='random', help='location of the genes, default is random')
 parser.add_argument('-ckpt', '--checkpoint', type=str, default='', help='checkpoint file name, default is empty')
-
 # get the args
 args = parser.parse_args()
 output_order = args.index
@@ -63,17 +61,16 @@ checkpoint_file = args.checkpoint
 #get date in format yyyymmdd
 import datetime
 date = datetime.datetime.now().strftime("%Y%m%d")
-output_dir = "simulation_results_id_" + str(output_order)
 if IF_DGX == True:
-    
-    output_folder = "workspace/yeast" + version  + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +"_gpu"+ str(gpus) +".lm"
+    if gpus == 1:
+        output_folder = "workspace/yeast" + version + "_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +".lm"
+    else:
+        output_folder = "workspace/yeast" + version + "_multi_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +"_gpu"+ str(gpus) +".lm"
 else:
-    
-    output_folder = "yeast" + version  + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +"_gpu"+ str(gpus) +".lm"
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
-
-output_folder = os.path.join(output_dir, output_folder)
+    if gpus == 1:
+        output_folder = "yeast" + version + "_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +".lm"
+    else:
+        output_folder = "yeast" + version + "_multi_" + str(date) + "_" + str(output_order) + "_t"+ str(simtime) + "min"+ "GAE" + str(externalGal_input)+ "mM" + output_tag +"_gpu"+ str(gpus) +".lm"
 
 print("output_folder: ", output_folder)
 print("simtime: ", simtime)
@@ -529,16 +526,14 @@ with sim.construct():
 # In[55]:
 if checkpoint_file == "":
     if IF_DGX == True:
-        initMolec = pickle.load(open("/workspace/cme_species_counts.pkl", "rb"))
+        initMolec = pickle.load(open("/workspace/ysZeroGAE.pkl", "rb"))
     else:
-        initMolec = pickle.load(open("cme_species_counts.pkl", "rb"))
+        initMolec = pickle.load(open("ysZeroGAE.pkl", "rb"))
     # change molecular/unit volume to actual molecules
     volScale = np.sum(B.convexHull(sim.siteLattice==reg.plasmaMembrane.idx))*sim.siteV/cellVol
     def initMolecules(x):
         # convert molecules/unit volume to molecues
-        counts = int(round(initMolec[x]*volScale))
-        # counts = int(initMolec[x])
-        # print(f"volScale: {volScale}")
+        counts = int(initMolec[x]*volScale)
         return counts
 
     # place all genes randomly in the nucleoplasm
@@ -622,41 +617,18 @@ if checkpoint_file == "":
     print("G4d in nucleoplasm: {}".format(initMolecules("G4d")))
     sp.Grep.placeNumberInto(reg.cytoplasm, initMolecules("Grep"))
     print("Grep in cytoplasm: {}".format(initMolecules("Grep")))
-    # place mRNA for G3 and G80 
-    # modifications = {'reporter_rna': 0.26,
-    #              'R1': 0.26,
-    #              'R2': 0.33,
-    #              'R3': 0.90,
-    #              'R4': 0.40,
-    #              'R80': 1.18,
-    #              'G80C': 0.11,
-    #              'G80': 0.11,
-    #              'G4': 0.15
-    #              }
-  
-    sp.R3.placeNumberInto(reg.nucleoplasm, initMolecules("R3"))
-    sp.R80.placeNumberInto(reg.nucleoplasm, initMolecules("R80"))
-    
-    print("R3 in nucleoplasm: {}".format(initMolecules("R3")))
-    print("R80 in nucleoplasm: {}".format(initMolecules("R80")))
-    sp.G80.placeNumberInto(reg.cytoplasm, 1)
-    sp.G80.placeNumberInto(reg.nucleoplasm,1)
-    sp.G80d.placeNumberInto(reg.cytoplasm, initMolecules("G80Cd"))
-    sp.G80d.placeNumberInto(reg.nucleoplasm, initMolecules("G80d"))
-    print("G80 in cytoplasm: {}, in nucleoplasm: {}".format(initMolecules("G80C"), initMolecules("G80")))
-    print("G80d in cytoplasm: {}, in nucleoplasm: {}".format(initMolecules("G80Cd"), initMolecules("G80d")))
-    # else:
-    #     # place G80
-    #     # G80 is placed in the cytoplasm and nucleoplasm, separated by relative volume
-    #     cscl = reg.cytoplasm.volume/(reg.cytoplasm.volume+reg.nucleoplasm.volume)
-    #     totM = initMolecules("G80C") + initMolecules("G80")
-    #     totD = initMolecules("G80Cd") + initMolecules("G80d")
-    #     sp.G80.placeNumberInto(reg.cytoplasm, int(cscl*totM))
-    #     sp.G80.placeNumberInto(reg.nucleoplasm, int((1-cscl)*totM))
-    #     sp.G80d.placeNumberInto(reg.cytoplasm, int(cscl*totD))
-    #     sp.G80d.placeNumberInto(reg.nucleoplasm, int((1-cscl)*totD))
-    #     print("G80 in cytoplasm: {}, in nucleoplasm: {}".format(int(cscl*totM), int((1-cscl)*totM)))
-    #     print("G80d in cytoplasm: {}, in nucleoplasm: {}".format(int(cscl*totD), int((1-cscl)*totD)))
+
+    # place G80
+    # G80 is placed in the cytoplasm and nucleoplasm, separated by relative volume
+    cscl = reg.cytoplasm.volume/(reg.cytoplasm.volume+reg.nucleoplasm.volume)
+    totM = initMolecules("G80C") + initMolecules("G80")
+    totD = initMolecules("G80Cd") + initMolecules("G80d")
+    sp.G80.placeNumberInto(reg.cytoplasm, int(cscl*totM))
+    sp.G80.placeNumberInto(reg.nucleoplasm, int((1-cscl)*totM))
+    sp.G80d.placeNumberInto(reg.cytoplasm, int(cscl*totD))
+    sp.G80d.placeNumberInto(reg.nucleoplasm, int((1-cscl)*totD))
+    print("G80 in cytoplasm: {}, in nucleoplasm: {}".format(int(cscl*totM), int((1-cscl)*totM)))
+    print("G80d in cytoplasm: {}, in nucleoplasm: {}".format(int(cscl*totD), int((1-cscl)*totD)))
 
     # place ribosome particles in ribosomes region
 

@@ -1,6 +1,0 @@
-Gal1, YBR020W
-Gal2, YLR081W
-Gal3, YDR009W
-Gal4, YPL248C
-Gal80, YML051W
-reporter, NA
