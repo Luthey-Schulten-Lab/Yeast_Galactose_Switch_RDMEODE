@@ -1,0 +1,3 @@
+[submodule "Lattice-Microbes_YeastRDMEODE"]
+	path = Lattice-Microbes_YeastRDMEODE
+	url = https://github.com/Luthey-Schulten-Lab/Lattice_Microbes.git
