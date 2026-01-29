@@ -1,6 +1,11 @@
 # Yeast Galactose Switch: Hybrid RDME-ODE Simulation Framework
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![CUDA](https://img.shields.io/badge/CUDA-11.0+-76B900.svg?logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-toolkit)
+[![C++](https://img.shields.io/badge/C++-17-00599C.svg?logo=cplusplus&logoColor=white)](https://isocpp.org/)
+[![VMD](https://img.shields.io/badge/VMD-1.9.4+-8B0000.svg)](https://www.ks.uiuc.edu/Research/vmd/)
+[![HDF5](https://img.shields.io/badge/HDF5-Data%20Storage-0078D4.svg)](https://www.hdfgroup.org/solutions/hdf5/)
 
 This repository contains the computational framework for simulating yeast galactose switch dynamics using hybrid reaction-diffusion master equation (RDME) and chemical master equation (CME) approaches coupled with ordinary differential equations (ODE). The work demonstrates multi-scale spatial-temporal modeling of gene regulatory networks in realistic cellular geometries.
 
@@ -118,7 +123,6 @@ export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 
 ```bash
 lm --version
-python -c "import pyLM; print('pyLM installed successfully')"
 ```
 
 ## Usage
@@ -203,5 +207,3 @@ For questions and support:
 - **Documentation**: See `docs/` directory for detailed documentation
 
 ---
-
-_This computational framework enables quantitative understanding of gene regulatory dynamics in realistic cellular environments, bridging molecular mechanisms and cellular behavior._
