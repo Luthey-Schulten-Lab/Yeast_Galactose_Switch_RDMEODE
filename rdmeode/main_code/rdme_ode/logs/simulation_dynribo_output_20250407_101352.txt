@@ -1,0 +1,38 @@
+output_folder:  simulation_results_id_99/yeast1.14.3mt20250407_99_t0.02minGAE11.1mMtestcase_gpu2_gpu2.lm
+simtime:  0.02
+geometry_file:  yeast-lattice.2.pkl.xz
+the shape of the lattice is:  (192, 192, 192)
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+gene location random
+DG1 in state DG1_G4d_G80d
+DG2 in state DG2_G4d_G80d
+DG3 in state DG3_G4d_G80d
+DG80 in state DG80_G4d_G80d
+DGrep in state DGrep_G4d_G80d
+Gene4 in state DG4
+G1 in cytoplasm: 125
+G2 in plasma membrane: 1093
+G3 in cytoplasm: 4103
+G4d in nucleoplasm: 292
+Grep in cytoplasm: 125
+R3 in nucleoplasm: 1
+R80 in nucleoplasm: 1
+G80 in cytoplasm: 0, in nucleoplasm: 0
+G80d in cytoplasm: 149, in nucleoplasm: 149
+ribosomes number: 180000
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>

@@ -1,0 +1,54 @@
+output_folder:  yeast1.12.4mt_20241119_99_t0.01minGAE11.1mMtestcase_gpu1.lm
+simtime:  0.01
+geometry_file:  yeast-lattice.2.pkl.xz
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+gene location random
+DG1 in state DG1_G4d_G80d
+DG2 in state DG2_G4d_G80d
+DG3 in state DG3_G4d_G80d
+DG80 in state DG80_G4d_G80d
+DGrep in state DGrep_G4d_G80d
+Gene4 in state DG4
+G1 in cytoplasm: 111
+G2 in plasma membrane: 1224
+G3 in cytoplasm: 3092
+G4d in nucleoplasm: 291
+Grep in cytoplasm: 111
+G80 in cytoplasm: 0, in nucleoplasm: 0
+G80d in cytoplasm: 195, in nucleoplasm: 26
+ribosomes number: 180000
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+the initial region list that no need for diffusion is:
+[0, 1, 2, 3, 4, 5]
+After removal, the region list that no need for diffusion :
+[0, 1]
+2024-11-19 15:11:10) Info: Using 32 processor(s) and 1 CUDA device(s) per process.
+2024-11-19 15:11:10) Info: Assigning 1.00 processor(s) and 1.00 CUDA device(s) per replicate.
+2024-11-19 15:11:10) Info: Data output thread running.
+==PROF== Connected to process 281878 (/home/tianyu/miniconda3/envs/lm2.5_dev/bin/python3.7)
+this is the generateTrajectory function from IntMpdRdmeSolver.cu
+2024-11-19 15:11:13) Info: Running mpd rdme simulation with 39 species, 66 reactions, 6 site types for 6.000000e-01 s with tau 5.000000e-05. Writing species at -nan and lattice at 0.000000e+00 intervals
+
+region 0 no diffusion
+region 1 no diffusion
+==PROF== Profiling "mpd_x_kernel" - 0: 0%....50%....100% - 1 pass
+
+==ERROR== LaunchFailed
+==PROF== Trying to shutdown target application
+==ERROR== The application returned an error code (9).
+==PROF== Report: /data2/2024_Yeast_GS/my_current_code/rdme_ode/profile_output.ncu-rep

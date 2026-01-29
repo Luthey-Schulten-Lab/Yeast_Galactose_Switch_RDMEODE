@@ -1,0 +1,877 @@
+output_folder:  yeast1.12.4mt_multi_20241018_99_t0.05minGAE11.1mMtestcase_gpu2.lm
+simtime:  0.05
+geometry_file:  yeast-lattice.2.pkl.xz
+Byte
+RESIZING!!!
+Byte lattice initialized
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+gene location fixed
+DGrep_G4d_G80d is inside the nucleoplasm
+DG1_G4d_G80d is inside the nucleoplasm
+DG2_G4d_G80d is inside the nucleoplasm
+DG3_G4d_G80d is inside the nucleoplasm
+DG80_G4d_G80d is inside the nucleoplasm
+DG4 is inside the nucleoplasm
+G1 in cytoplasm: 111
+G2 in plasma membrane: 1224
+G3 in cytoplasm: 3092
+G4d in nucleoplasm: 291
+Grep in cytoplasm: 111
+G80 in cytoplasm: 0, in nucleoplasm: 0
+G80d in cytoplasm: 195, in nucleoplasm: 26
+ribosomes number: 180000
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+using gpus:  [0, 1]
+2024-10-18 13:30:02) Info: Using 32 processor(s) and 2 CUDA device(s) per process.
+2024-10-18 13:30:02) Info: Assigning 2.00 processor(s) and 2.00 CUDA device(s) per replicate.
+2024-10-18 13:30:02) Info: Data output thread running.
+==PROF== Connected to process 609141 (/home/tianyu/miniconda3/envs/lm2.5_dev/bin/python3.7)
+2024-10-18 13:30:03) Info: MPDRDME: Rng seed: top word 684644145, bottom word 1
+## of GPUs: 2
+Master Current: 3
+2024-10-18 13:30:03) Info: Running mpd rdme simulation with 39 species, 66 reactions, 6 site types for 3.000000e+00 s with tau 5.000000e-05. Writing species at 10000 and lattice at 10000 intervals
+Initilize GPUS: 73728 4
+Initilize GPUS: 73728 4
+ max Time is: 3seconds 
+Data for time 0.0 appended to yeast1.12.4mt_multi_20241018_99_t0.05minGAE11.1mMtestcase_gpu2.lm_region.jsonl
+ODE data for time 0.0 appended to yeast1.12.4mt_multi_20241018_99_t0.05minGAE11.1mMtestcase_gpu2.lm_ode.jsonl
+================================================================================
+t= 0.0
+ODE
+  GAI                            0
+  G1                    7.2268e-09
+  G1GAI                          0
+  G2GAI                          0
+  G2GAE                          0
+  G2                     7.969e-08
+RDME
+  DGrep                          0
+  DGrep_G4d                      0
+  DGrep_G4d_G80d                 1
+  Rrep                           0
+  Grep                         111
+  DG1                            0
+  DG1_G4d                        0
+  DG1_G4d_G80d                   1
+  R1                             0
+  G1                           111
+  DG2                            0
+  DG2_G4d                        0
+  DG2_G4d_G80d                   1
+  R2                             0
+  G2                          1224
+  DG3                            0
+  DG3_G4d                        0
+  DG3_G4d_G80d                   1
+  R3                             0
+  G3                          3092
+  G3i                            0
+  DG4                            1
+  R4                             0
+  G4                             0
+  G4d                          291
+  DG80                           0
+  DG80_G4d                       0
+  DG80_G4d_G80d                  1
+  R80                            0
+  G80                            0
+  G80d                         221
+  G80d_G3i                       0
+  ribosome                  180000
+  ribosomeR1                     0
+  ribosomeR2                     0
+  ribosomeR3                     0
+  ribosomeR4                     0
+  ribosomeR80                    0
+  ribosomeGrep                   0
+new rate g3 activation: 0
+--------------------------------------------------------------------------------
+steps to run: 9999
+==PROF== Profiling "MGPU_x_kernel_unpack" - 0: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 1: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 2: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 3: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 4: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 5: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 6: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 7: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 8: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 9: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 10: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 11: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 12: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 13: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 14: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 15: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 16: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 17: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 18: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 19: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 20: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 21: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 22: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 23: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 24: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 25: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 26: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 27: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 28: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 29: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 30: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 31: 0%....50%....100% - 37 passes
+2024-10-18 13:31:04) Info: Average walltime per timestep: 12094.09 ms. Progress: 0.0003s/3.0000s ( 0.00833% done / 1.2 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 32: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 33: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 34: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 35: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 36: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 37: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 38: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 39: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 40: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 41: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 42: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 43: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 44: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 45: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 46: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 47: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 48: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 49: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 50: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 51: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 52: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 53: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 54: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 55: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 56: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 57: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 58: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 59: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 60: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 61: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 62: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 63: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 64: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 65: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 66: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 67: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 68: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 69: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 70: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 71: 0%....50%....100% - 37 passes
+2024-10-18 13:32:14) Info: Average walltime per timestep: 14150.34 ms. Progress: 0.0005s/3.0000s ( 0.0167% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 72: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 73: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 74: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 75: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 76: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 77: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 78: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 79: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 80: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 81: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 82: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 83: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 84: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 85: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 86: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 87: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 88: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 89: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 90: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 91: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 92: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 93: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 94: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 95: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 96: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 97: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 98: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 99: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 100: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 101: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 102: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 103: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 104: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 105: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 106: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 107: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 108: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 109: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 110: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 111: 0%....50%....100% - 37 passes
+2024-10-18 13:33:25) Info: Average walltime per timestep: 14172.53 ms. Progress: 0.0008s/3.0000s ( 0.025% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 112: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 113: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 114: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 115: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 116: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 117: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 118: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 119: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 120: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 121: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 122: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 123: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 124: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 125: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 126: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 127: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 128: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 129: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 130: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 131: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 132: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 133: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 134: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 135: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 136: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 137: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 138: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 139: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 140: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 141: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 142: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 143: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 144: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 145: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 146: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 147: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 148: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 149: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 150: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 151: 0%....50%....100% - 37 passes
+2024-10-18 13:34:37) Info: Average walltime per timestep: 14271.04 ms. Progress: 0.0010s/3.0000s ( 0.0333% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 152: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 153: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 154: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 155: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 156: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 157: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 158: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 159: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 160: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 161: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 162: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 163: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 164: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 165: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 166: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 167: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 168: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 169: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 170: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 171: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 172: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 173: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 174: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 175: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 176: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 177: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 178: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 179: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 180: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 181: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 182: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 183: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 184: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 185: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 186: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 187: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 188: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 189: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 190: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 191: 0%....50%....100% - 37 passes
+2024-10-18 13:35:48) Info: Average walltime per timestep: 14287.31 ms. Progress: 0.0013s/3.0000s ( 0.0417% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 192: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 193: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 194: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 195: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 196: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 197: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 198: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 199: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 200: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 201: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 202: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 203: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 204: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 205: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 206: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 207: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 208: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 209: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 210: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 211: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 212: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 213: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 214: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 215: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 216: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 217: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 218: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 219: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 220: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 221: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 222: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 223: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 224: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 225: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 226: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 227: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 228: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 229: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 230: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 231: 0%....50%....100% - 37 passes
+2024-10-18 13:36:59) Info: Average walltime per timestep: 14120.96 ms. Progress: 0.0015s/3.0000s ( 0.05% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 232: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 233: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 234: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 235: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 236: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 237: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 238: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 239: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 240: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 241: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 242: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 243: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 244: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 245: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 246: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 247: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 248: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 249: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 250: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 251: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 252: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 253: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 254: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 255: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 256: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 257: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 258: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 259: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 260: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 261: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 262: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 263: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 264: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 265: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 266: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 267: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 268: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 269: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 270: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 271: 0%....50%....100% - 37 passes
+2024-10-18 13:38:09) Info: Average walltime per timestep: 14173.66 ms. Progress: 0.0018s/3.0000s ( 0.0583% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 272: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 273: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 274: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 275: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 276: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 277: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 278: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 279: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 280: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 281: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 282: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 283: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 284: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 285: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 286: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 287: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 288: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 289: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 290: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 291: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 292: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 293: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 294: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 295: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 296: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 297: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 298: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 299: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 300: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 301: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 302: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 303: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 304: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 305: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 306: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 307: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 308: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 309: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 310: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 311: 0%....50%....100% - 37 passes
+2024-10-18 13:39:20) Info: Average walltime per timestep: 14041.36 ms. Progress: 0.0020s/3.0000s ( 0.0667% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 312: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 313: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 314: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 315: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 316: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 317: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 318: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 319: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 320: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 321: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 322: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 323: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 324: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 325: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 326: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 327: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 328: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 329: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 330: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 331: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 332: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 333: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 334: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 335: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 336: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 337: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 338: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 339: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 340: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 341: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 342: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 343: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 344: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 345: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 346: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 347: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 348: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 349: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 350: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 351: 0%....50%....100% - 37 passes
+2024-10-18 13:40:33) Info: Average walltime per timestep: 14600.46 ms. Progress: 0.0023s/3.0000s ( 0.075% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 352: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 353: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 354: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 355: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 356: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 357: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 358: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 359: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 360: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 361: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 362: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 363: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 364: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 365: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 366: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 367: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 368: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 369: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 370: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 371: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 372: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 373: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 374: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 375: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 376: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 377: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 378: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 379: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 380: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 381: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 382: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 383: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 384: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 385: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 386: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 387: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 388: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 389: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 390: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 391: 0%....50%....100% - 37 passes
+2024-10-18 13:41:44) Info: Average walltime per timestep: 14345.58 ms. Progress: 0.0025s/3.0000s ( 0.0833% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 392: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 393: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 394: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 395: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 396: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 397: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 398: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 399: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 400: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 401: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 402: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 403: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 404: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 405: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 406: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 407: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 408: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 409: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 410: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 411: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 412: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 413: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 414: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 415: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 416: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 417: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 418: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 419: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 420: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 421: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 422: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 423: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 424: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 425: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 426: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 427: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 428: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 429: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 430: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 431: 0%....50%....100% - 37 passes
+2024-10-18 13:42:55) Info: Average walltime per timestep: 14180.46 ms. Progress: 0.0028s/3.0000s ( 0.0917% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 432: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 433: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 434: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 435: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 436: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 437: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 438: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 439: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 440: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 441: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 442: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 443: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 444: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 445: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 446: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 447: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 448: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 449: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 450: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 451: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 452: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 453: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 454: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 455: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 456: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 457: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 458: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 459: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 460: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 461: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 462: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 463: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 464: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 465: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 466: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 467: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 468: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 469: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 470: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 471: 0%....50%....100% - 37 passes
+2024-10-18 13:44:06) Info: Average walltime per timestep: 14220.49 ms. Progress: 0.0030s/3.0000s ( 0.1% done / 1.4 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 472: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 473: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 474: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 475: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 476: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 477: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 478: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 479: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 480: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 481: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 482: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 483: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 484: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 485: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 486: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 487: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 488: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 489: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 490: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 491: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 492: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 493: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 494: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 495: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 496: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 497: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 498: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 499: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 500: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 501: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 502: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 503: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 504: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 505: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 506: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 507: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 508: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 509: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 510: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 511: 0%....50%....100% - 38 passes
+2024-10-18 13:45:20) Info: Average walltime per timestep: 14705.06 ms. Progress: 0.0033s/3.0000s ( 0.108% done / 1.5 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 512: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 513: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 514: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 515: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 516: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 517: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 518: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 519: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 520: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 521: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 522: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 523: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 524: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 525: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 526: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 527: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 528: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 529: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 530: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 531: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 532: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 533: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 534: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 535: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 536: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 537: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 538: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 539: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 540: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 541: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 542: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 543: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 544: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 545: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 546: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 547: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 548: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 549: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 550: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 551: 0%....50%....100% - 37 passes
+2024-10-18 13:46:35) Info: Average walltime per timestep: 14945.06 ms. Progress: 0.0035s/3.0000s ( 0.117% done / 1.5 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 552: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 553: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 554: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 555: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 556: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 557: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 558: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 559: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 560: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 561: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 562: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 563: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 564: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 565: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 566: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 567: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 568: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 569: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 570: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 571: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 572: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 573: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 574: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 575: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 576: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 577: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 578: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 579: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 580: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 581: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 582: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 583: 0%....50%....100% - 37 passes
+2024-10-18 13:47:35) Info: Average walltime per timestep: 15132.45 ms. Progress: 0.0037s/3.0000s ( 0.123% done / 1.5 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 584: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 585: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 586: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 587: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 588: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 589: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 590: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 591: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 592: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 593: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 594: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 595: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 596: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 597: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 598: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 599: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 600: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 601: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 602: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 603: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 604: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 605: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 606: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 607: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 608: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 609: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 610: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 611: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 612: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 613: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 614: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 615: 0%....50%....100% - 37 passes
+2024-10-18 13:48:35) Info: Average walltime per timestep: 15044.19 ms. Progress: 0.0039s/3.0000s ( 0.13% done / 1.5 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 616: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 617: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 618: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 619: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 620: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 621: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 622: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 623: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 624: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 625: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 626: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 627: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 628: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 629: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 630: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 631: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 632: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 633: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 634: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 635: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 636: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 637: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 638: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 639: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 640: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 641: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 642: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 643: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 644: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 645: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 646: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 647: 0%....50%....100% - 37 passes
+2024-10-18 13:49:40) Info: Average walltime per timestep: 16072.51 ms. Progress: 0.0041s/3.0000s ( 0.137% done / 1.6 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 648: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 649: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 650: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 651: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 652: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 653: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 654: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 655: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 656: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 657: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 658: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 659: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 660: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 661: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 662: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 663: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 664: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 665: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 666: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 667: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 668: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 669: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 670: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 671: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 672: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 673: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 674: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 675: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 676: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 677: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 678: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 679: 0%....50%....100% - 37 passes
+2024-10-18 13:50:44) Info: Average walltime per timestep: 16045.22 ms. Progress: 0.0043s/3.0000s ( 0.143% done / 1.6 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 680: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 681: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 682: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 683: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 684: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 685: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 686: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 687: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 688: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 689: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 690: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 691: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 692: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 693: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 694: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 695: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 696: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 697: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 698: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 699: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 700: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 701: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 702: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 703: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 704: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 705: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 706: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 707: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 708: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 709: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 710: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 711: 0%....50%....100% - 37 passes
+2024-10-18 13:51:45) Info: Average walltime per timestep: 15323.65 ms. Progress: 0.0045s/3.0000s ( 0.15% done / 1.5 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 712: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 713: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 714: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 715: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 716: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 717: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 718: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 719: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 720: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 721: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 722: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 723: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 724: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 725: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 726: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 727: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 728: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 729: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 730: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 731: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 732: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 733: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 734: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 735: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 736: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 737: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 738: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 739: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 740: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 741: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 742: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 743: 0%....50%....100% - 37 passes
+2024-10-18 13:52:46) Info: Average walltime per timestep: 15324.21 ms. Progress: 0.0047s/3.0000s ( 0.157% done / 1.5 weeks walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 744: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 745: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 746: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 747: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 748: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 749: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 750: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 751: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 752: 

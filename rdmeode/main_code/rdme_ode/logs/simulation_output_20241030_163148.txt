@@ -1,0 +1,177 @@
+output_folder:  yeast1.12.4mt_multi_20241030_99_t0.01minGAE11.1mMtestcase_gpu2.lm
+simtime:  0.01
+geometry_file:  yeast-lattice.2.pkl.xz
+Byte
+RESIZING!!!
+Byte lattice initialized
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+gene location fixed
+DGrep_G4d_G80d is inside the nucleoplasm
+DG1_G4d_G80d is inside the nucleoplasm
+DG2_G4d_G80d is inside the nucleoplasm
+DG3_G4d_G80d is inside the nucleoplasm
+DG80_G4d_G80d is inside the nucleoplasm
+DG4 is inside the nucleoplasm
+G1 in cytoplasm: 111
+G2 in plasma membrane: 1224
+G3 in cytoplasm: 3092
+G4d in nucleoplasm: 291
+Grep in cytoplasm: 111
+G80 in cytoplasm: 0, in nucleoplasm: 0
+G80d in cytoplasm: 195, in nucleoplasm: 26
+ribosomes number: 180000
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+using gpus:  [0, 1]
+2024-10-30 16:31:57) Info: Using 32 processor(s) and 2 CUDA device(s) per process.
+2024-10-30 16:31:57) Info: Assigning 2.00 processor(s) and 2.00 CUDA device(s) per replicate.
+2024-10-30 16:31:57) Info: Data output thread running.
+==PROF== Connected to process 295190 (/home/tianyu/miniconda3/envs/lm2.5_dev/bin/python3.7)
+2024-10-30 16:31:58) Info: MPDRDME: Rng seed: top word 3878885580, bottom word 1
+## of GPUs: 2
+Master Current: 0.6
+2024-10-30 16:31:59) Info: Running mpd rdme simulation with 39 species, 66 reactions, 6 site types for 6.000000e-01 s with tau 5.000000e-05. Writing species at 40000 and lattice at 40000 intervals
+Initilize GPUS: 73728 4
+Initilize GPUS: 73728 4
+ max Time is: 0.6seconds 
+==PROF== Profiling "MGPU_x_kernel_unpack" - 0: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 1: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 2: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 3: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 4: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 5: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 6: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 7: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 8: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 9: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 10: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 11: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 12: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 13: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 14: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 15: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 16: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 17: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 18: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 19: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 20: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 21: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 22: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 23: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 24: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 25: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 26: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 27: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 28: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 29: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 30: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 31: 0%....50%....100% - 37 passes
+Data for time 0.0 appended to yeast1.12.4mt_multi_20241030_99_t0.01minGAE11.1mMtestcase_gpu2.lm_region.jsonl
+ODE data for time 0.0 appended to yeast1.12.4mt_multi_20241030_99_t0.01minGAE11.1mMtestcase_gpu2.lm_ode.jsonl
+================================================================================
+t= 0.0
+ODE
+  GAI                            0
+  G1                    7.2268e-09
+  G1GAI                          0
+  G2GAI                          0
+  G2GAE                          0
+  G2                     7.969e-08
+RDME
+  DGrep                          0
+  DGrep_G4d                      0
+  DGrep_G4d_G80d                 1
+  Rrep                           0
+  Grep                         111
+  DG1                            0
+  DG1_G4d                        0
+  DG1_G4d_G80d                   1
+  R1                             0
+  G1                           111
+  DG2                            0
+  DG2_G4d                        0
+  DG2_G4d_G80d                   1
+  R2                             0
+  G2                          1224
+  DG3                            0
+  DG3_G4d                        0
+  DG3_G4d_G80d                   1
+  R3                             0
+  G3                          3092
+  G3i                            0
+  DG4                            1
+  R4                             0
+  G4                             0
+  G4d                          291
+  DG80                           0
+  DG80_G4d                       0
+  DG80_G4d_G80d                  1
+  R80                            0
+  G80                            0
+  G80d                         221
+  G80d_G3i                       0
+  ribosome                  180000
+  ribosomeR1                     0
+  ribosomeR2                     0
+  ribosomeR3                     0
+  ribosomeR4                     0
+  ribosomeR80                    0
+  ribosomeGrep                   0
+new rate g3 activation: 0
+--------------------------------------------------------------------------------
+2024-10-30 16:33:05) Info: Average walltime per timestep: 13166.62 ms. Progress: 0.0003s/0.5999s ( 0.0417% done / 1.8 days walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 32: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 33: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 34: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 35: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 36: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 37: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 38: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 39: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 40: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 41: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 42: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 43: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 44: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 45: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 46: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 47: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 48: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 49: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 50: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 51: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_z_kernel" - 52: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 53: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 54: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 55: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 56: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 57: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 58: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_y_kernel" - 59: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 60: 0%....50%....100% - 38 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 61: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 62: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 63: 0%....50%....100% - 37 passes
+2024-10-30 16:34:07) Info: Average walltime per timestep: 15698.43 ms. Progress: 0.0005s/0.5999s ( 0.075% done / 2.2 days walltime remaining)
+==PROF== Profiling "MGPU_x_kernel_unpack" - 64: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_x_kernel_unpack" - 65: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 66: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_y_kernel" - 67: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 68: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_z_kernel" - 69: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 70: 0%....50%....100% - 37 passes
+==PROF== Profiling "MGPU_precomp_reaction_kernel_..." - 71: 

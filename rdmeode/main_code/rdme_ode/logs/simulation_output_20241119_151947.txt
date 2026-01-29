@@ -1,0 +1,107 @@
+output_folder:  yeast1.12.4mt_20241119_99_t0.01minGAE11.1mMtestcase_gpu1.lm
+simtime:  0.01
+geometry_file:  yeast-lattice.2.pkl.xz
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+gene location random
+DG1 in state DG1_G4d_G80d
+DG2 in state DG2_G4d_G80d
+DG3 in state DG3_G4d_G80d
+DG80 in state DG80_G4d_G80d
+DGrep in state DGrep_G4d_G80d
+Gene4 in state DG4
+G1 in cytoplasm: 111
+G2 in plasma membrane: 1224
+G3 in cytoplasm: 3092
+G4d in nucleoplasm: 291
+Grep in cytoplasm: 111
+G80 in cytoplasm: 0, in nucleoplasm: 0
+G80d in cytoplasm: 195, in nucleoplasm: 26
+ribosomes number: 180000
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+the initial region list that no need for diffusion is:
+[0, 1, 2, 3, 4, 5]
+After removal, the region list that no need for diffusion :
+[0, 1]
+2024-11-19 15:19:58) Info: Using 32 processor(s) and 1 CUDA device(s) per process.
+2024-11-19 15:19:58) Info: Assigning 1.00 processor(s) and 1.00 CUDA device(s) per replicate.
+2024-11-19 15:19:58) Info: Data output thread running.
+this is the generateTrajectory function from IntMpdRdmeSolver.cu
+2024-11-19 15:19:59) Info: Running mpd rdme simulation with 39 species, 66 reactions, 6 site types for 6.000000e-01 s with tau 5.000000e-05. Writing species at -nan and lattice at 4.979529e-310 intervals
+
+region 0 no diffusion
+region 1 no diffusion
+Data for time 0.0 appended to yeast1.12.4mt_20241119_99_t0.01minGAE11.1mMtestcase_gpu1.lm_region.jsonl
+ODE data for time 0.0 appended to yeast1.12.4mt_20241119_99_t0.01minGAE11.1mMtestcase_gpu1.lm_ode.jsonl
+================================================================================
+t= 0.0
+ODE
+  GAI                            0
+  G1                    7.2268e-09
+  G1GAI                          0
+  G2GAI                          0
+  G2GAE                          0
+  G2                     7.969e-08
+RDME
+  DGrep                          0
+  DGrep_G4d                      0
+  DGrep_G4d_G80d                 1
+  Rrep                           0
+  Grep                         111
+  DG1                            0
+  DG1_G4d                        0
+  DG1_G4d_G80d                   1
+  R1                             0
+  G1                           111
+  DG2                            0
+  DG2_G4d                        0
+  DG2_G4d_G80d                   1
+  R2                             0
+  G2                          1224
+  DG3                            0
+  DG3_G4d                        0
+  DG3_G4d_G80d                   1
+  R3                             0
+  G3                          3092
+  G3i                            0
+  DG4                            1
+  R4                             0
+  G4                             0
+  G4d                          291
+  DG80                           0
+  DG80_G4d                       0
+  DG80_G4d_G80d                  1
+  R80                            0
+  G80                            0
+  G80d                         221
+  G80d_G3i                       0
+  ribosome                  180000
+  ribosomeR1                     0
+  ribosomeR2                     0
+  ribosomeR3                     0
+  ribosomeR4                     0
+  ribosomeR80                    0
+  ribosomeGrep                   0
+new rate g3 activation: 0
+--------------------------------------------------------------------------------
+2024-11-19 15:20:02) ERROR: Exception during execution of replicate: CUDA error: an illegal memory access was encountered (/data2/LM_kallithea/Lattice-Microbes/src/rdme/IntMpdRdmeSolver.cu:991).
+2024-11-19 15:20:02) Info: Data output thread finished.
+2024-11-19 15:20:02) Info: Simulation file closed.
+Closed output file: yeast1.12.4mt_20241119_99_t0.01minGAE11.1mMtestcase_gpu1.lm_region.jsonl
+Closed output file: yeast1.12.4mt_20241119_99_t0.01minGAE11.1mMtestcase_gpu1.lm_ode.jsonl
+Total time spent in hookSimulation: 2.9760289192199707 seconds
+Total time taken: 23.14759397506714 seconds

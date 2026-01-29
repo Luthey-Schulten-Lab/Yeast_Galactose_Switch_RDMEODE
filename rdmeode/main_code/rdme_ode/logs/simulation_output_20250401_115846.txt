@@ -1,0 +1,103 @@
+output_folder:  simulation_results_id_99/yeast1.14.3mt20250401_99_t0.01minGAE11.1mMtestcase_gpu1_gpu1.lm
+simtime:  0.01
+geometry_file:  yeast-lattice.2.pkl.xz
+the shape of the lattice is:  (192, 192, 192)
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+gene location random
+DG1 in state DG1_G4d_G80d
+DG2 in state DG2_G4d_G80d
+DG3 in state DG3_G4d_G80d
+DG80 in state DG80_G4d_G80d
+DGrep in state DGrep_G4d_G80d
+Gene4 in state DG4
+G1 in cytoplasm: 125
+G2 in plasma membrane: 1093
+G3 in cytoplasm: 4103
+G4d in nucleoplasm: 292
+Grep in cytoplasm: 125
+R3 in nucleoplasm: 1
+R80 in nucleoplasm: 1
+G80 in cytoplasm: 0, in nucleoplasm: 0
+G80d in cytoplasm: 149, in nucleoplasm: 149
+ribosomes number: 180000
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+<IPython.core.display.HTML object>
+2025-04-01 11:58:58) Info: Using 32 processor(s) and 1 CUDA device(s) per process.
+2025-04-01 11:58:58) Info: Assigning 1.00 processor(s) and 1.00 CUDA device(s) per replicate.
+2025-04-01 11:58:58) Info: Data output thread running.
+2025-04-01 11:58:59) Info: Running mpd rdme simulation with 39 species, 66 reactions, 8 site types for 6.000000e-01 s with tau 5.000000e-05. Writing species at -nan and lattice at 4.863140e-310 intervals
+Memory usage: 2205.625 MB
+Data for time 0.0 appended to simulation_results_id_99/yeast1.14.3mt20250401_99_t0.01minGAE11.1mMtestcase_gpu1_gpu1.lm_region.jsonl
+ODE data for time 0.0 appended to simulation_results_id_99/yeast1.14.3mt20250401_99_t0.01minGAE11.1mMtestcase_gpu1_gpu1.lm_ode.jsonl
+================================================================================
+t= 0.0
+ODE
+  GAI                            0
+  G1                    8.1382e-09
+  G1GAI                          0
+  G2GAI                          0
+  G2GAE                          0
+  G2                    7.1161e-08
+RDME
+  DGrep                          0
+  DGrep_G4d                      0
+  DGrep_G4d_G80d                 1
+  Rrep                           0
+  Grep                         125
+  DG1                            0
+  DG1_G4d                        0
+  DG1_G4d_G80d                   1
+  R1                             0
+  G1                           125
+  DG2                            0
+  DG2_G4d                        0
+  DG2_G4d_G80d                   1
+  R2                             0
+  G2                          1093
+  DG3                            0
+  DG3_G4d                        0
+  DG3_G4d_G80d                   1
+  R3                             1
+  G3                          4103
+  G3i                            0
+  DG4                            1
+  R4                             0
+  G4                             0
+  G4d                          292
+  DG80                           0
+  DG80_G4d                       0
+  DG80_G4d_G80d                  1
+  R80                            1
+  G80                            2
+  G80d                         298
+  G80d_G3i                       0
+  ribosome                  180000
+  ribosomeR1                     0
+  ribosomeR2                     0
+  ribosomeR3                     0
+  ribosomeR4                     0
+  ribosomeR80                    0
+  ribosomeGrep                   0
+new rate g3 activation: 0
+--------------------------------------------------------------------------------
+2025-04-01 12:01:17) Info: Wrote 1 data sets (452984876 bytes) in the last 139.09 seconds (0.82 seconds writing). 0 datasets queued. Flushing.
+2025-04-01 12:01:17) Info: Data output thread finished.
+2025-04-01 12:01:17) Info: Simulation file closed.
+Closed output file: simulation_results_id_99/yeast1.14.3mt20250401_99_t0.01minGAE11.1mMtestcase_gpu1_gpu1.lm_region.jsonl
+Closed output file: simulation_results_id_99/yeast1.14.3mt20250401_99_t0.01minGAE11.1mMtestcase_gpu1_gpu1.lm_ode.jsonl
+Total time spent in hookSimulation: 5.221773862838745 seconds
+Total time taken: 158.6279923915863 seconds
