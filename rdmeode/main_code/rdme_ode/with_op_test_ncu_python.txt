@@ -1,2 +1,0 @@
-/home/tianyu/miniconda3/envs/lm2.5_od/bin/python: can't open file 'TutR1.1_bimolecular_uni.py': [Errno 2] No such file or directory
-==ERROR== The application returned an error code (2).
