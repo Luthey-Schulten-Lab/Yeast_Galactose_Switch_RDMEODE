@@ -2,41 +2,43 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-
 This repository contains the computational framework for simulating yeast galactose switch dynamics using hybrid reaction-diffusion master equation (RDME) and chemical master equation (CME) approaches coupled with ordinary differential equations (ODE). The work demonstrates multi-scale spatial-temporal modeling of gene regulatory networks in realistic cellular geometries.
 
-![System Overview](figures/switch_sys_diagram_new.png)
-*Figure 1: Schematic of the yeast galactose switch system showing the hybrid RDME-ODE approach with spatial cellular compartments and gene regulatory network*
+![System Overview](figures/switch_diagram_new.png)
+_Figure 1: Schematic of the yeast galactose switch system showing the hybrid RDME-ODE approach with spatial cellular compartments and gene regulatory network_
 
 ## Overview
 
-The galactose switch in *Saccharomyces cerevisiae* represents a paradigmatic example of bistable gene expression. This framework implements:
+The galactose switch in _Saccharomyces cerevisiae_ represents a paradigmatic example of bistable gene expression. This framework implements:
 
 - **Hybrid RDME-ODE simulations** for spatial modeling of molecular transport and gene regulation
-- **Hybrid CME-ODE simulations** for well-mixed compartment modeling  
+- **Hybrid CME-ODE simulations** for well-mixed compartment modeling
 - **Multi-GPU acceleration** for large-scale spatial simulations
 - **Realistic cellular geometries** derived from electron microscopy data
 - **Multi-scale temporal dynamics** from seconds to hours
 
 ![Computational Framework](figures/toc_figure.png)
-*Figure 2: Multi-scale computational approach showing yeast cell geometry, gene states, and molecular dynamics across different time scales*
+_Figure 2: Multi-scale computational approach showing yeast cell geometry, gene states, and molecular dynamics across different time scales_
 
 ## Key Features
 
 ### Multi-Scale Modeling
+
 - **Spatial RDME**: Captures molecular diffusion and localization effects
 - **Well-mixed CME**: Efficient simulation of fast molecular interactions
 - **ODE coupling**: Handles continuous variables like galactose transport
 
 ### High-Performance Computing
+
 - **Multi-GPU support** for large-scale spatial simulations
 - **MPI parallelization** for distributed computing
 - **Optimized CUDA kernels** for reaction-diffusion dynamics
 
 ![Multi-GPU Architecture](figures/Multi_GPU.png)
-*Figure 3: Multi-GPU parallelization strategy for spatial domain decomposition*
+_Figure 3: Multi-GPU parallelization strategy for spatial domain decomposition_
 
 ### Realistic Cellular Geometry
+
 - High-resolution electron microscopy-derived geometries
 - Detailed subcellular compartments (nucleus, ER, cytoplasm)
 - Ribosome distributions and membrane structures
@@ -44,19 +46,22 @@ The galactose switch in *Saccharomyces cerevisiae* represents a paradigmatic exa
 ## Repository Structure
 
 ```
-├── Lattice-Microbes_YeastRDMEODE/    # Core simulation engine
+├── Lattice-Microbes_YeastRDMEODE/    # Core simulation engine (submodule)
 │   ├── src/                          # C++/CUDA source code
 │   ├── pylm-examples/               # Python examples
 │   └── docs/                        # Documentation
 ├── cmeode/                          # Hybrid CME-ODE simulations
 │   ├── cme_ode_sim.py              # Main simulation script
 │   ├── cme_rxns/                   # Reaction definitions
-│   └── analysis/                   # Analysis notebooks
+│   └── analysis_visualization/     # Analysis and figure generation
 ├── rdmeode/                         # Hybrid RDME-ODE simulations
-│   ├── main_code/                  # Main simulation scripts
+│   ├── main_code/                  # Main simulation scripts and data
 │   ├── geometry/                   # Cellular geometry files
 │   ├── init_counts/                # Initial conditions
-│   └── analysis/                   # Analysis notebooks
+│   └── analysis_visualization/     # Analysis and figure generation
+├── S7_sensitivity_analyzer/         # Sensitivity analysis tools
+├── trajectories/                    # Simulation trajectory data (see .gitignore)
+├── video_rendering_VMD/             # VMD-based video rendering scripts
 ├── figures/                         # Key figures for documentation
 └── README.md                        # This file
 ```
@@ -81,12 +86,14 @@ The galactose switch in *Saccharomyces cerevisiae* represents a paradigmatic exa
 ### Installation Steps
 
 1. **Clone the repository**:
+
 ```bash
 git clone https://github.com/your-repo/Yeast_Galactose_Switch_RDMEODE.git
 cd Yeast_Galactose_Switch_RDMEODE
 ```
 
 2. **Install Lattice Microbes**:
+
 ```bash
 cd Lattice-Microbes_YeastRDMEODE
 
@@ -101,12 +108,14 @@ make -j$(nproc) && make install
 ```
 
 3. **Set up CUDA environment** (if using GPUs):
+
 ```bash
 export PATH="/usr/local/cuda/bin/:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 ```
 
 4. **Verify installation**:
+
 ```bash
 lm --version
 python -c "import pyLM; print('pyLM installed successfully')"
@@ -124,6 +133,7 @@ bash ode_cme.sh
 ```
 
 **Key parameters**:
+
 - `GAE_CONC`: External galactose concentration (mM)
 - `NUM_REPS`: Number of simulation replicates
 - `SIM_TIME`: Simulation duration (minutes)
@@ -138,19 +148,39 @@ bash ode_rdme.sh
 ```
 
 **Configuration options**:
+
 - **Geometry**: Choose from normal, ER-enriched, or effective ribosome geometries
 - **GPU settings**: Adjust number of GPUs and memory allocation
 - **Simulation parameters**: Set time steps, species counts, and output frequency
 
 ### Analysis
 
-Comprehensive analysis notebooks are provided:
+Comprehensive analysis and figure generation scripts are provided:
 
-- **CME-ODE Analysis**: `cmeode/analysis/yeast_ode_cme_analysis.ipynb`
-- **RDME-ODE Analysis**: `rdmeode/analysis/rdmeode-analysis_new.ipynb`
-- **Comparative Analysis**: Various notebooks for comparing different approaches
+- **CME-ODE Analysis**: `cmeode/analysis_visualization/yeast_ode_cme_analysis.ipynb`
+- **RDME-ODE Analysis**: `rdmeode/analysis_visualization/traj_analysis_rdme.py`
+- **Figure Generation**: Dedicated scripts for phase space contours, protein production rates, species totals, and RDME-CME comparisons in each `analysis_visualization/` directory
 
+### Sensitivity Analysis
 
+The `S7_sensitivity_analyzer/` directory contains tools for parameter sensitivity analysis:
+
+```bash
+cd S7_sensitivity_analyzer
+python combined_sensitivity_analysis.py
+```
+
+- `combined_sensitivity_analysis.py`: Comprehensive sensitivity analysis
+- `comprehensive_galactose_ode_system.py`: ODE system definition
+- `steady_state_analyzer.py`: Steady-state computation and convergence analysis
+
+### Video Rendering
+
+Figures and supplementary videos can be rendered using VMD (Visual Molecular Dynamics). See `video_rendering_VMD/readme.md` for detailed instructions.
+
+- Requires VMD 1.9.4 with the Lattice Microbes plugin (or VMD 2.0+)
+- Trajectory files (`.lm`) must be downloaded from Zenodo
+- Includes scripts for geometry overview figures and trajectory animations
 
 ## Contributing
 
@@ -161,8 +191,6 @@ We welcome contributions! Please see our contributing guidelines:
 3. Make your changes with appropriate tests
 4. Submit a pull request
 
-
-
 ## License
 
 This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details.
@@ -170,11 +198,10 @@ This project is licensed under the Apache License - see the [LICENSE](LICENSE) f
 ## Support
 
 For questions and support:
+
 - **Issues**: Report bugs and request features via GitHub Issues
 - **Documentation**: See `docs/` directory for detailed documentation
 
-
-
 ---
 
-*This computational framework enables quantitative understanding of gene regulatory dynamics in realistic cellular environments, bridging molecular mechanisms and cellular behavior.*
+_This computational framework enables quantitative understanding of gene regulatory dynamics in realistic cellular environments, bridging molecular mechanisms and cellular behavior._
