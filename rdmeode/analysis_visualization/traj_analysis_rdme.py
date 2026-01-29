@@ -5,6 +5,7 @@ import jLM
 import json
 import matplotlib.pyplot as plt
 import seaborn as sns
+from matplotlib_pub_figure import setup_publication_style
 import os
 
 # This file contains functions for analyzing and plotting trajectory data from RDME simulations
@@ -14,8 +15,9 @@ import os
 def get_traj(traj_dir, traj_file, traj_suff=None, region_suff=None):
     # Reads trajectory data from either JSONL or PKL files
     # Returns both RDME trajectory object and ODE trajectory data
-    traj_fname = os.path.join(traj_dir, traj_file)
-    traj = RDMEFile(traj_fname)
+    traj_dir = os.path.join(traj_dir, '')  # This adds OS-specific separator if missing
+    traj_fname = traj_dir+traj_file
+    traj = RDMEFile(traj_dir+traj_file)
     # Read the file based on its type
     if traj_suff is None:
         odeTraj = None
@@ -116,10 +118,13 @@ def read_jsonl(file_path):
     return data
 
 
-def plot_gene_states_duration(traj_file, fig_dir, rdmeTs, rdmeYs,dpi=300):
+def plot_gene_states_duration(traj_file, traj_dir, rdmeTs, rdmeYs,dpi=300):
     # Creates a stacked area plot showing the duration of different gene states over time
     # Plots data for multiple genes and their states (Free, Activated, Repressed)
     # Saves the resulting plot as a PNG file
+    
+    # Setup publication style
+    colors = setup_publication_style(figure_size='large', dpi=dpi)
 
     # Define the genes and their states
     genes = [['DG1', 'DGrep'], ['DG2'], ['DG3', 'DG80']]
@@ -176,10 +181,10 @@ def plot_gene_states_duration(traj_file, fig_dir, rdmeTs, rdmeYs,dpi=300):
     plt.subplots_adjust(bottom=0.1, top=0.92)  # Adjust these values to make room for the title and legend
 
     # Save the figure
-    fig.savefig(os.path.join(fig_dir,  os.path.basename(traj_file) + '_gene_states_duration.png' ), dpi=dpi, bbox_inches='tight')
+    fig.savefig(traj_dir + traj_file + '_gene_states_duration.png', dpi=dpi, bbox_inches='tight')
 
 
-def plot_gene_states_duration_table(traj_file, fig_dir, rdmeTs, rdmeYs,dpi=300):
+def plot_gene_states_duration_table(traj_file, traj_dir, rdmeTs, rdmeYs,dpi=300):
     genes = ['DG1', 'DGrep', 'DG2', 'DG3', 'DG80']
     states = ['', '_G4d', '_G4d_G80d']
     total_time = rdmeTs[-1] - rdmeTs[0]
@@ -208,12 +213,14 @@ def plot_gene_states_duration_table(traj_file, fig_dir, rdmeTs, rdmeYs,dpi=300):
     plt.gcf().text(0.95, 0.01, traj_file, fontsize=10, verticalalignment='bottom', horizontalalignment='right')
 
     plt.tight_layout()
-    fig.savefig(os.path.join( fig_dir,  os.path.basename(traj_file)  + '_gene_states_duration_table.png'), dpi=dpi, bbox_inches='tight')
+    fig.savefig(traj_dir + traj_file + '_gene_states_duration_table.png', dpi=dpi, bbox_inches='tight')
     #plt.show()
 
 
 # Assuming rdmeYs, odeYs, rdmeTs, odeTs, and traj_fname are already defined
-def plot_all_species(traj_file, traj_dir, fig_dir, rdmeTs, rdmeYs, odeTs, odeYs,dpi=300):
+def plot_all_species(traj_file, traj_dir, rdmeTs, rdmeYs, odeTs, odeYs,dpi=300):
+    # Setup publication style
+    pub_colors = setup_publication_style(figure_size='large', dpi=dpi)
     traj_fname = traj_dir + traj_file
     # Prepare names and plot layout
     names = sorted(filter(lambda x: x[0], set(rdmeYs.keys()) | set(odeYs.keys())))
@@ -262,11 +269,13 @@ def plot_all_species(traj_file, traj_dir, fig_dir, rdmeTs, rdmeYs, odeTs, odeYs,
     axs[nplots - 1].legend([rdmeHandle, odeHandle], ["RDME", "ODE"], bbox_to_anchor=(1.5, 1), loc=2, borderaxespad=0.)
 
     # Save the figure
-    fig.savefig(os.path.join (fig_dir, traj_file + '_ll_species_counts' + '.png'), dpi=dpi)
+    fig.savefig(traj_fname + 'all_species_counts' + '.png', dpi=dpi)
 
 
 # tailored species plot
-def plot_tailored_species(traj, traj_file, traj_dir, fig_dir, rdmeTs, rdmeYs, odeTs, odeYs,dpi=300):
+def plot_tailored_species(traj, traj_file, traj_dir, rdmeTs, rdmeYs, odeTs, odeYs,dpi=300):
+    # Setup publication style
+    pub_colors = setup_publication_style(figure_size='large', dpi=dpi)
     # Define the species to plot in the specified order
     species_order = [
         ['G1', 'G1GAI', 'G1+G1GAI', 'Grep'],
@@ -278,7 +287,6 @@ def plot_tailored_species(traj, traj_file, traj_dir, fig_dir, rdmeTs, rdmeYs, od
     ]
     traj_fname = traj_dir + traj_file
     NAV = 6.022e23 * (traj.reg.cytoplasm.volume + traj.reg.nucleoplasm.volume + traj.reg.plasmaMembrane.volume)
-    print("NAV: ", NAV)
     # Calculate the number of rows and columns
     nrows = len(species_order)
     ncols = max(len(row) for row in species_order)
@@ -359,12 +367,14 @@ def plot_tailored_species(traj, traj_file, traj_dir, fig_dir, rdmeTs, rdmeYs, od
             loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0))
 
     # Save the figure
-    fig.savefig(os.path.join(fig_dir, os.path.basename(traj_fname) + '_selected_species_counts_and_conc.png') , dpi=dpi, bbox_inches='tight')
+    fig.savefig(traj_fname + 'selected_species_counts_and_conc.png', dpi=dpi, bbox_inches='tight')
 
 
 # species specific plot
-def plot_species_specific(interested_species, traj_file, traj_dir, fig_dir, rdmeTs, rdmeYs, odeTs, odeYs,dpi=300):
+def plot_species_specific(interested_species, traj_file, traj_dir, rdmeTs, rdmeYs, odeTs, odeYs,dpi=300):
     from matplotlib.gridspec import GridSpec
+    # Setup publication style
+    pub_colors = setup_publication_style(figure_size='large', dpi=dpi)
     gene_name = 'DG' + interested_species[1:]
     mrna_name = 'R' + interested_species[1:]
     names = sorted(filter(lambda x: interested_species in x or mrna_name in x, set(rdmeYs.keys()) | set(odeYs.keys())))
@@ -390,25 +400,17 @@ def plot_species_specific(interested_species, traj_file, traj_dir, fig_dir, rdme
 
     # Create the stacked area chart for DG2
     ax = fig.add_subplot(gs[0, :])
-    if gene_name == 'DG4':
-        gene_states = ['']
-        gene_colors = ['#B0BEC5']
-        ode_DG = rdmeYs[gene_name]
-        ax.fill_between(rdmeTs, 0, ode_DG, color=gene_colors[0], alpha=0.5, label='free')
-        ax.set(title=interested_species, **axargs)
-        ax.legend()
-    else:
-        gene_sates = ['', '_G4d', '_G4d_G80d']
-        ode_DG = rdmeYs[gene_name]
-        ode_DG_G4d = rdmeYs[gene_name + gene_sates[1]]
-        ode_DG_G4d_G80d = rdmeYs[gene_name + gene_sates[2]]
+    gene_sates = ['', '_G4d', '_G4d_G80d']
+    ode_DG = rdmeYs[gene_name]
+    ode_DG_G4d = rdmeYs[gene_name + gene_sates[1]]
+    ode_DG_G4d_G80d = rdmeYs[gene_name + gene_sates[2]]
 
-        gene_colors = ['#B0BEC5', '#4CAF50', '#1E88E5']
-        ax.fill_between(rdmeTs, 0, ode_DG, color=gene_colors[0], alpha=0.5, label='free')
-        ax.fill_between(rdmeTs, ode_DG, ode_DG + ode_DG_G4d, color=gene_colors[1], alpha=0.5, label='activated')
-        ax.fill_between(rdmeTs, ode_DG + ode_DG_G4d, ode_DG + ode_DG_G4d + ode_DG_G4d_G80d, color=gene_colors[2], alpha=0.5, label='repressed')
-        ax.set(title=interested_species, **axargs)
-        ax.legend()
+    gene_colors = ['#B0BEC5', '#4CAF50', '#1E88E5']
+    ax.fill_between(rdmeTs, 0, ode_DG, color=gene_colors[0], alpha=0.5, label='free')
+    ax.fill_between(rdmeTs, ode_DG, ode_DG + ode_DG_G4d, color=gene_colors[1], alpha=0.5, label='activated')
+    ax.fill_between(rdmeTs, ode_DG + ode_DG_G4d, ode_DG + ode_DG_G4d + ode_DG_G4d_G80d, color=gene_colors[2], alpha=0.5, label='repressed')
+    ax.set(title=interested_species, **axargs)
+    ax.legend()
 
     # Initialize handles for legend
     handles = []
@@ -441,7 +443,7 @@ def plot_species_specific(interested_species, traj_file, traj_dir, fig_dir, rdme
                 loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0.02))
 
     # Save the figure
-    fig.savefig(os.path.join(fig_dir,  traj_file + f'_{interested_species}_species_counts.png'), dpi=dpi, bbox_inches='tight')
+    fig.savefig(traj_dir + traj_file + f'_{interested_species}_species_counts.png', dpi=dpi, bbox_inches='tight')
 
 
 
@@ -460,6 +462,8 @@ def plot_species_by_region(interested_species, interested_regions, traj_file, fi
     '''
     import matplotlib.pyplot as plt
     import seaborn as sns
+    # Setup publication style
+    pub_colors = setup_publication_style(figure_size='large', dpi=dpi)
     
     # Create figure with transparent background
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10), 
@@ -507,7 +511,7 @@ def plot_species_by_region(interested_species, interested_regions, traj_file, fi
     plt.tight_layout()
     
     # Save figure with transparency
-    plt.savefig(os.path.join(fig_dir, f"{traj_file}_{interested_species}_region_distribution.png"), 
+    plt.savefig(f"{fig_dir}{traj_file}_{interested_species}_region_distribution.png", 
                 dpi=dpi, 
                 bbox_inches='tight',
                 transparent=True,
