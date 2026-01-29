@@ -3,6 +3,8 @@ CME-ODE Simulation of the Galactose Switch in Baker's Yeast
 Author: Tianyu Wu, 2024
 
 This code is the same as the code in the published paper IET 2018 by David Bianchi
+
+In this script, the time unit is minute.
 '''
 '''
 Part1: Package Import
