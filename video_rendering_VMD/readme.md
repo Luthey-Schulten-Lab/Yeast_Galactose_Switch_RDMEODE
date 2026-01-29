@@ -9,18 +9,19 @@ Download the required trajectory files (`.lm`) from Zenodo before reproducing an
 ## Reproducing Figure 3 (Geometry Overview)
 
 1. Load the first frame of any ER trajectory
-2. Load the visualization state file
+2. Load the visualization state file [geometry_movie.vmd](./SVideo1_script/geometry_movie.vmd)
 3. Render and save the image
 
 ## Reproducing Video 1 (Camera Flythrough)
 
-1. Load the camera motion and representation change script
-2. The script defines predefined camera positions and angles
+1. Load the camera motion and representation change script [geometry_movie.vmd](./SVideo1_script/geometry_movie.vmd)
+2. The script defines predefined camera positions and angles [`DIY_movie_list.tcl`](./SVideo1_script/DIY_movie_list.tcl)
 3. Start video recording
+4. For high resolution: load the custom rendering script [make_movie_from_viewpoints.tcl](./SVideo1_script/make_movie_from_viewpoints.tcl) and call the function ` make_movie_from_viewpoints` from TkConsole—this renders frame-by-frame and uses FFmpeg to assemble the final video
 
 ## Reproducing Videos 2–4 (Trajectory Animations)
 
 1. Load the corresponding trajectory file
 2. Load the visualization state file
 3. For standard resolution: use the built-in `movie_maker` plugin
-4. For high resolution: load the custom rendering script and call the function from TkConsole—this renders frame-by-frame and uses FFmpeg to assemble the final video
+4. For high resolution: load the custom rendering script [high_res_video.tcl](./high_res_video.tcl) and call the function `make_movie` from TkConsole—this renders frame-by-frame and uses FFmpeg to assemble the final video
