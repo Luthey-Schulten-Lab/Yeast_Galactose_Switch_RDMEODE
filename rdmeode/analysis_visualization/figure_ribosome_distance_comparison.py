@@ -699,7 +699,7 @@ def create_distance_comparison_plot(data1, data2, data3, label1, label2, label3,
     # Customize plot
     ax.set_xlabel('Time (min)')
     ax.set_ylabel('Distance to Nucleus Center (µm)')
-    ax.legend(framealpha=0.3, loc='best')
+    # Legend removed - using separate legend figure
     ax.grid(False)
     
     # Adjust layout first to get proper positions
@@ -771,7 +771,7 @@ def create_ribosome_count_comparison_plot(data1, data2, data3, label1, label2, l
     # Customize plot
     ax.set_xlabel('Time (min)')
     ax.set_ylabel('Total Translating Ribosomes')
-    ax.legend(framealpha=0.3, loc='best')
+    # Legend removed - using separate legend figure
     ax.grid(False)
     
     # Save figure
@@ -884,6 +884,38 @@ def main():
     logging.info("- ribosome_count_comparison.png (Total translating ribosomes)")
     if raw1 is not None and raw2 is not None:
         logging.info("- P-value significance plots saved in: pvalue_plots/")
+    
+    # Create separate legend figure
+    create_separate_legend(label1, label2, label3, color1, color2, color3, fig_dir)
+
+def create_separate_legend(label1, label2, label3, color1, color2, color3, fig_dir):
+    """Create a separate legend figure for 2x2 layouts"""
+    from matplotlib.lines import Line2D
+    
+    fig_legend, ax_legend = plt.subplots(figsize=(6, 0.5))
+    ax_legend.set_axis_off()
+    
+    legend_handles = [
+        Line2D([0], [0], color=color1, linewidth=3, label=label1),
+        Line2D([0], [0], color=color2, linewidth=3, label=label2),
+    ]
+    if label3:
+        legend_handles.append(Line2D([0], [0], color=color3, linewidth=3, label=label3))
+    
+    ax_legend.legend(handles=legend_handles, 
+                     loc='center', 
+                     ncol=3 if label3 else 2, 
+                     frameon=True, 
+                     framealpha=0.8,
+                     fontsize=12,
+                     columnspacing=3.0,
+                     handlelength=2.5)
+    
+    plt.tight_layout()
+    legend_path = os.path.join(fig_dir, 'legend_separate.png')
+    plt.savefig(legend_path, dpi=300, bbox_inches='tight', transparent=True)
+    logging.info(f"Saved separate legend figure: {legend_path}")
+    plt.close()
 
 if __name__ == "__main__":
     main()

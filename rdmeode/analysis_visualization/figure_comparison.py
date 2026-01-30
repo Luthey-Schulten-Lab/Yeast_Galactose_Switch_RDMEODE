@@ -1468,7 +1468,7 @@ for sp_group in comparable_species:
     else:
         ax.set_ylabel('Counts')
     # ax.set_title(plot_title)  # Uncomment if you want titles
-    ax.legend(framealpha=0.3, loc='best')
+    # ax.legend(framealpha=0.3, loc='best')
     ax.grid(False)
     
     # Save figure
@@ -1556,6 +1556,75 @@ for sp_group in comparable_species:
                                  fig_dir=pvalue_dir, test_type=actual_test_type)
         else:
             logging.info(f"Skipping p-value plot for {sp1}/{sp2}{f'/{sp3}' if sp3 else ''} - trajectory data not found")
+
+# ===== Create separate legend figures for 2x2 layouts =====
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
+
+# Legend 1: Lines only (no shading)
+fig_legend, ax_legend = plt.subplots(figsize=(6, 0.5))
+ax_legend.set_axis_off()
+
+legend_handles = [
+    Line2D([0], [0], color=color1, linewidth=3, label=label1),
+    Line2D([0], [0], color=color2, linewidth=3, label=label2),
+]
+if label3:
+    legend_handles.append(Line2D([0], [0], color=color3, linewidth=3, label=label3))
+
+ax_legend.legend(handles=legend_handles, 
+                 loc='center', 
+                 ncol=3 if label3 else 2, 
+                 frameon=True, 
+                 framealpha=0.8,
+                 fontsize=12,
+                 columnspacing=3.0,
+                 handlelength=2.5)
+
+plt.tight_layout()
+legend_path = os.path.join(fig_dir, 'legend_separate.png')
+plt.savefig(legend_path, dpi=300, bbox_inches='tight', transparent=True)
+logging.info(f"Saved separate legend figure: {legend_path}")
+plt.close()
+
+# Legend 2: Lines with shading (min/max bands) - draw manually like figure_RDMECME_compare.py
+from matplotlib.patches import Rectangle
+
+fig_legend2, ax_legend2 = plt.subplots(figsize=(8, 0.8))
+ax_legend2.set_axis_off()
+
+# Build legend items list dynamically
+legend_items = [
+    {'color': color1, 'label': label1, 'x': 0.10},
+    {'color': color2, 'label': label2, 'x': 0.45},
+]
+if label3:
+    legend_items.append({'color': color3, 'label': label3, 'x': 0.75})
+
+for item in legend_items:
+    # Draw shaded rectangle
+    rect = Rectangle((item['x'], 0.3), 0.08, 0.4, 
+                     facecolor=item['color'], alpha=0.2, 
+                     edgecolor=item['color'], linewidth=1.5,
+                     transform=ax_legend2.transAxes)
+    ax_legend2.add_patch(rect)
+    # Draw line on top
+    ax_legend2.plot([item['x'], item['x'] + 0.08], [0.5, 0.5], 
+                   color=item['color'], linewidth=2.5, 
+                   transform=ax_legend2.transAxes)
+    # Add label
+    ax_legend2.text(item['x'] + 0.10, 0.5, item['label'], 
+                   fontsize=12, va='center', ha='left',
+                   transform=ax_legend2.transAxes)
+
+ax_legend2.set_xlim(0, 1)
+ax_legend2.set_ylim(0, 1)
+
+plt.tight_layout()
+legend_path_shading = os.path.join(fig_dir, 'legend_separate_with_shading.png')
+plt.savefig(legend_path_shading, dpi=300, bbox_inches='tight', transparent=True)
+logging.info(f"Saved separate legend figure with shading: {legend_path_shading}")
+plt.close()
 
 # Ask if user wants to create region-specific comparison plots
 region_data_available = include_regions and data1_species_region and data2_species_region
@@ -1670,7 +1739,7 @@ if region_data_available:
                 ax.set_xlabel('Time (min)')
                 ax.set_ylabel('Counts')
                 # ax.set_title(f'{species} in {region}')
-                ax.legend(framealpha=0.3, loc='best')
+                # Legend removed - using separate legend figure
                 ax.grid(False)
                 
                 # Save figure
@@ -1861,7 +1930,7 @@ if region_data_available:
                             ax.set_xlabel('Time (min)')
                             ax.set_ylabel('Counts')
                             # ax.set_title(f'{species} in {region_str}')
-                            ax.legend(framealpha=0.3, loc='best')
+                            # Legend removed - using separate legend figure
                             ax.grid(False)
                             
                             # Save figure
@@ -2264,7 +2333,7 @@ if create_gai_total:
     ax.set_xlabel('Time (min)')
     ax.set_ylabel('Concentration (mM)')
     # ax.set_title('Total GAI Species Comparison')
-    ax.legend(framealpha=0.3, loc='best')
+    # Legend removed - using separate legend figure
     ax.grid(False)
 
     # Save figure

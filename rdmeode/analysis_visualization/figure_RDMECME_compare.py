@@ -49,6 +49,11 @@ logging.basicConfig(
 # Setup publication style (same as figure_comparison.py)
 colors = setup_publication_style(figure_size='medium', dpi=300)
 
+# Define custom colors for consistency
+# CME-ODE: light green, RDME-ODE: orange (colors[1])
+cme_color = '#2ca02c'  # Light green for CME-ODE
+rdme_color = colors[1]  # Orange for RDME-ODE
+
 logging.info(f"This is the file to compare between RDME-ODE and CME-ODE data: {rdme_traj_dir} and {cme_traj_dir}")
 
 '''
@@ -793,13 +798,13 @@ for species_name in cme_species:
         # Check if this is a gene species (starts with DG) - if so, don't plot min/max
         is_gene_species = "DG" in species_name
         
-        ax.plot(time, noer_avg, label=f'CME-ODE', linestyle='-', color=colors[0])
+        ax.plot(time, noer_avg, label=f'CME-ODE', linestyle='-', color=cme_color)
         if not is_gene_species:
-            ax.fill_between(time, noer_min, noer_max, alpha=0.2, color=colors[0])
+            ax.fill_between(time, noer_min, noer_max, alpha=0.2, color=cme_color)
         # Plot using publication style colors with min/max fill_between
-        ax.plot(time, er_avg, label=f'RDME-ODE', linestyle='-', color=colors[1])
+        ax.plot(time, er_avg, label=f'RDME-ODE', linestyle='-', color=rdme_color)
         if not is_gene_species:
-            ax.fill_between(time, er_min, er_max, alpha=0.2, color=colors[1])
+            ax.fill_between(time, er_min, er_max, alpha=0.2, color=rdme_color)
         # Customize plot
         ax.set_xlabel('Time (min)')
         if species_name == 'GAI':
@@ -809,8 +814,7 @@ for species_name in cme_species:
         else:
             ax.set_ylabel('Counts')
         # ax.set_title(f'{display_name} Comparison')
-        # ax.legend(framealpha=0.3, loc='upper right')
-        ax.legend(framealpha=0.3, loc='best')
+        # Legend removed - using separate legend figure
         ax.grid(False)
         
         # Save figure with same DPI as main script (300)
@@ -994,19 +998,19 @@ if rdme_combined_avg is not None and time is not None:
 
 # Plot plasma membrane data if available
 if rdme_pm_combined_avg is not None and time is not None:
-    ax.plot(time, rdme_pm_combined_avg, label='RDME-ODE (plasma membrane)', linestyle='-', color=colors[1])
-    ax.fill_between(time, rdme_pm_combined_min, rdme_pm_combined_max, alpha=0.2, color=colors[1])
+    ax.plot(time, rdme_pm_combined_avg, label='RDME-ODE (plasma membrane)', linestyle='-', color=rdme_color)
+    ax.fill_between(time, rdme_pm_combined_min, rdme_pm_combined_max, alpha=0.2, color=rdme_color)
 
 if cme_combined_avg is not None and time is not None:
-    ax.plot(time, cme_combined_avg, label='CME-ODE', linestyle='-', color=colors[0])
-    ax.fill_between(time, cme_combined_min, cme_combined_max, alpha=0.2, color=colors[0])
+    ax.plot(time, cme_combined_avg, label='CME-ODE', linestyle='-', color=cme_color)
+    ax.fill_between(time, cme_combined_min, cme_combined_max, alpha=0.2, color=cme_color)
 
 # Customize plot with same style as main script
 ax.set_xlabel('Time (min)')
 ax.set_ylabel('Counts')
 # Remove title to match main script style
 # ax.set_title('Total G2 Species Comparison (G2 + G2GAE + G2GAI)')
-ax.legend(framealpha=0.3, loc='best')
+# Legend removed - using separate legend figure
 ax.grid(False)
 
 # Save figure with same DPI as main script
@@ -1197,12 +1201,12 @@ print("CME species used in GAI total:", cme_species_used)
 if cme_combined_avg is not None:
     cme_time_to_use = cme_time if 'cme_time' in locals() else time
     if cme_time_to_use is not None:
-        ax.plot(cme_time_to_use, cme_combined_avg, label='CME-ODE', linestyle='-', color=colors[0])
-        ax.fill_between(cme_time_to_use, cme_combined_min, cme_combined_max, alpha=0.2, color=colors[0])
+        ax.plot(cme_time_to_use, cme_combined_avg, label='CME-ODE', linestyle='-', color=cme_color)
+        ax.fill_between(cme_time_to_use, cme_combined_min, cme_combined_max, alpha=0.2, color=cme_color)
 # Plot using publication style colors with min/max fill_between
 if rdme_combined_avg is not None and time is not None:
-    ax.plot(time, rdme_combined_avg, label='RDME-ODE', linestyle='-', color=colors[1])
-    ax.fill_between(time, rdme_combined_min, rdme_combined_max, alpha=0.2, color=colors[1])
+    ax.plot(time, rdme_combined_avg, label='RDME-ODE', linestyle='-', color=rdme_color)
+    ax.fill_between(time, rdme_combined_min, rdme_combined_max, alpha=0.2, color=rdme_color)
 
 
 
@@ -1214,8 +1218,7 @@ if time is not None:
 ax.set_xlabel('Time (min)')
 ax.set_ylabel('Concentration (mM)')
 # ax.set_title('Total GAI Species Comparison (GAI + G1GAI + G3i + G2GAI)')
-# ax.legend(framealpha=0.3, loc='upper right')
-ax.legend(framealpha=0.3, loc='best')
+# Legend removed - using separate legend figure
 ax.grid(False)
 
 # Save figure
@@ -1302,17 +1305,17 @@ for pattern in sorted(common_patterns):
     cme_max = str_to_array(cme_data['Max'])
 
     # Plot CME data
-    ax.plot(time, cme_avg, label='CME-ODE', linestyle='-', color=colors[0])
-    ax.fill_between(time, cme_min, cme_max, alpha=0.2, color=colors[0])
+    ax.plot(time, cme_avg, label='CME-ODE', linestyle='-', color=cme_color)
+    ax.fill_between(time, cme_min, cme_max, alpha=0.2, color=cme_color)
 
     # Plot RDME data
-    ax.plot(time, rdme_avg, label='RDME-ODE', linestyle='-', color=colors[1])
-    ax.fill_between(time, rdme_min, rdme_max, alpha=0.2, color=colors[1])
+    ax.plot(time, rdme_avg, label='RDME-ODE', linestyle='-', color=rdme_color)
+    ax.fill_between(time, rdme_min, rdme_max, alpha=0.2, color=rdme_color)
 
     # Customize plot
     ax.set_xlabel('Time (min)')
     ax.set_ylabel('Counts')
-    ax.legend(framealpha=0.3, loc='best')
+    # Legend removed - using separate legend figure
     ax.grid(False)
 
     # Save figure
@@ -1345,3 +1348,92 @@ for pattern in sorted(common_patterns):
         print(f"Could not create p-value plot for {pattern}_total: {e}")
 
 print(f"\nTotal species comparison plots saved in: {fig_dir}")
+
+'''
+================================================================================================
+This section creates a separate legend figure for use in 2x2 figure layouts
+================================================================================================
+'''
+
+# Create a horizontal legend figure that can be placed at the bottom of a 2x2 layout
+fig_legend, ax_legend = plt.subplots(figsize=(6, 0.5))
+ax_legend.set_axis_off()
+
+# Create dummy plot elements for the legend
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
+
+legend_elements = [
+    (Line2D([0], [0], color=cme_color, linewidth=2), 
+     Patch(facecolor=cme_color, alpha=0.2, edgecolor=cme_color),
+     'CME-ODE'),
+    (Line2D([0], [0], color=rdme_color, linewidth=2),
+     Patch(facecolor=rdme_color, alpha=0.2, edgecolor=rdme_color),
+     'RDME-ODE'),
+]
+
+# Create combined legend handles (line + patch)
+handles = []
+labels = []
+for line, patch, label in legend_elements:
+    handles.append((line, patch))
+    labels.append(label)
+
+# Use a simpler approach - just lines with markers
+legend_handles = [
+    Line2D([0], [0], color=cme_color, linewidth=3, label='CME-ODE'),
+    Line2D([0], [0], color=rdme_color, linewidth=3, label='RDME-ODE'),
+]
+
+ax_legend.legend(handles=legend_handles, 
+                 loc='center', 
+                 ncol=2, 
+                 frameon=True, 
+                 framealpha=0.8,
+                 fontsize=12,
+                 columnspacing=3.0,
+                 handlelength=2.5)
+
+plt.tight_layout()
+legend_path = os.path.join(fig_dir, 'legend_separate.png')
+plt.savefig(legend_path, dpi=300, bbox_inches='tight', transparent=True)
+print(f"\nSaved separate legend figure: {legend_path}")
+plt.close()
+
+# Also create a version with shading indicators
+fig_legend2, ax_legend2 = plt.subplots(figsize=(8, 0.8))
+ax_legend2.set_axis_off()
+
+# Create custom legend with both line and shading representation
+from matplotlib.patches import Rectangle
+
+# Draw custom legend items manually
+legend_items = [
+    {'color': cme_color, 'label': 'CME-ODE', 'x': 0.15},
+    {'color': rdme_color, 'label': 'RDME-ODE', 'x': 0.55},
+]
+
+for item in legend_items:
+    # Draw shaded rectangle
+    rect = Rectangle((item['x'], 0.3), 0.08, 0.4, 
+                     facecolor=item['color'], alpha=0.2, 
+                     edgecolor=item['color'], linewidth=1.5,
+                     transform=ax_legend2.transAxes)
+    ax_legend2.add_patch(rect)
+    # Draw line on top
+    ax_legend2.plot([item['x'], item['x'] + 0.08], [0.5, 0.5], 
+                   color=item['color'], linewidth=2.5, 
+                   transform=ax_legend2.transAxes)
+    # Add label
+    ax_legend2.text(item['x'] + 0.10, 0.5, item['label'], 
+                   fontsize=12, va='center', ha='left',
+                   transform=ax_legend2.transAxes)
+
+ax_legend2.set_xlim(0, 1)
+ax_legend2.set_ylim(0, 1)
+
+plt.tight_layout()
+legend_path2 = os.path.join(fig_dir, 'legend_separate_with_shading.png')
+plt.savefig(legend_path2, dpi=300, bbox_inches='tight', transparent=True)
+print(f"Saved separate legend figure with shading: {legend_path2}")
+plt.close()

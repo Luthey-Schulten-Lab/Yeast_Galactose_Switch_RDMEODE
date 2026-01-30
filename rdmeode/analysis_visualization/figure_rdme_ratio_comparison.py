@@ -18,27 +18,27 @@ color_dum = colors[0]
 # file1_label = "ER"
 # file2_label = "ER eff ribo"
 #ER file
-color_dum2 = colors[1]
-# color_dum3 = colors[2]
-# color_dum4 = colors[3]
-color1 = colors[2]    
-color2 = colors[3]   
-color3 = colors[4] 
-file1 = "/data2/2024_Yeast_GS/my_current_code/rdme_ode_results/20251121_ER_newR2diff/trajectory_comparison/no ER_species_statistics.csv"
-file2 = "/data2/2024_Yeast_GS/my_current_code/rdme_ode_results/20251121_ER_newR2diff/trajectory_comparison/with ER_species_statistics.csv"
-file1_label = "no ER"
-file2_label = "with ER"
-#Eff file
 # color_dum2 = colors[1]
 # color_dum3 = colors[2]
-# # color_dum4 = colors[3]
-# color1 = colors[3]    
-# color2 = colors[4]   
-# color3 = colors[5] 
-# file1 = "/data2/2024_Yeast_GS/my_current_code/rdme_ode_results/20251121_EFFCHROMO_newR2/trajectory_comparison/ER_species_statistics.csv"
-# file2 = "/data2/2024_Yeast_GS/my_current_code/rdme_ode_results/20251121_EFFCHROMO_newR2/trajectory_comparison/ER eff ribo_species_statistics.csv"
-# file1_label = "ER"
-# file2_label = "ER eff ribo"
+# color_dum4 = colors[3]
+# color1 = colors[2]    
+# color2 = colors[3]   
+# color3 = colors[4] 
+# file1 = "/data2/2024_Yeast_GS/my_current_code/rdme_ode_results/20251121_ER_newR2diff/trajectory_comparison/no ER_species_statistics.csv"
+# file2 = "/data2/2024_Yeast_GS/my_current_code/rdme_ode_results/20251121_ER_newR2diff/trajectory_comparison/with ER_species_statistics.csv"
+# file1_label = "no ER"
+# file2_label = "with ER"
+#Eff file
+color_dum2 = colors[1]
+color_dum3 = colors[2]
+# color_dum4 = colors[3]
+color1 = colors[3]    
+color2 = colors[4]   
+color3 = colors[5] 
+file1 = "/data2/2024_Yeast_GS/my_current_code/rdme_ode_results/20251121_EFFCHROMO_newR2/trajectory_comparison/ER_species_statistics.csv"
+file2 = "/data2/2024_Yeast_GS/my_current_code/rdme_ode_results/20251121_EFFCHROMO_newR2/trajectory_comparison/ER eff ribo_species_statistics.csv"
+file1_label = "ER"
+file2_label = "ER eff ribo"
 # Logging
 out_dir = os.path.dirname(file1)
 log_file = os.path.join(out_dir, "rdme_r2_ratio_comparison.log")
@@ -286,7 +286,7 @@ for i, condition in enumerate([file1_label, file2_label]):
 
 ax.set_xlabel('Time (min)')
 # ax.set_title('Comparison of RDME_R2 Ratio Between eff and with eff Conditions')
-ax.legend(framealpha=0.3, loc='best')
+# Legend removed - using separate legend figure
 ax.grid(False)
 # ax.set_yscale('log')
 # Set y-axis to show ratio as percentage
@@ -423,3 +423,30 @@ print(f"  Min ratio: {ratio_df2['ratio'].min():.4f}")
 print(f"  Max ratio: {ratio_df2['ratio'].max():.4f}")
 
 plt.show()
+
+# ===== Create a separate legend figure for 2x2 layouts =====
+from matplotlib.lines import Line2D
+from matplotlib.patches import Rectangle
+
+fig_legend, ax_legend = plt.subplots(figsize=(6, 0.5))
+ax_legend.set_axis_off()
+
+legend_handles = [
+    Line2D([0], [0], color=color1, linewidth=3, label=file1_label),
+    Line2D([0], [0], color=color2, linewidth=3, label=file2_label),
+]
+
+ax_legend.legend(handles=legend_handles, 
+                 loc='center', 
+                 ncol=2, 
+                 frameon=True, 
+                 framealpha=0.8,
+                 fontsize=12,
+                 columnspacing=3.0,
+                 handlelength=2.5)
+
+plt.tight_layout()
+legend_path = os.path.join(out_dir, 'legend_separate.png')
+plt.savefig(legend_path, dpi=300, bbox_inches='tight', transparent=True)
+print(f"\nSaved separate legend figure: {legend_path}")
+plt.close()
