@@ -10,10 +10,8 @@
 #SBATCH --time=20:00:00
 #SBATCH --gpus-per-node=4
 #SBATCH --gpu-bind=closest
-#SBATCH --mail-user=tianyu16@illinois.edu
+#SBATCH --mail-user=[EMAIL_ADDRESS]    
 #SBATCH --mail-type="BEGIN,FAIL,END"
-#SBATCH -e /projects/bddt/twu4/yeast_rdmeode/slurm_logs_dtai/slurm-%N-%x-%j.err
-#SBATCH -o /projects/bddt/twu4/yeast_rdmeode/slurm_logs_dtai/slurm-%N-%x-%j.out
 
 module reset
 set -euo pipefail

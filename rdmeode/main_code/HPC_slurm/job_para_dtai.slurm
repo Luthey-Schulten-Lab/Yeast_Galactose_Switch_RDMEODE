@@ -14,7 +14,7 @@
 #SBATCH --gpus-per-node=4
 #SBATCH --gpu-bind=closest     # <- or closest
 
-#SBATCH --mail-user=hli106@illinois.edu
+#SBATCH --mail-user=[EMAIL_ADDRESS]
 #SBATCH --mail-type="BEGIN,FAIL,END" #See sbatch or srun man pages for more email options
 #SBATCH -e testing_dtai.err
 #SBATCH -o testing_dtai.out
