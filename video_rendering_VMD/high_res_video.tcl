@@ -2,12 +2,13 @@
 display depthcue off
 display projection Orthographic
 axes location Off
-display shadows on                                                        #打开阴影                           
-display ambientocclusion on                                            #打开ao
-render aasamples TachyonLOptiXInternal 24                     #设置抗锯齿强度，越大越平滑，但是渲染就越慢
+display shadows on                                                                            
+display ambientocclusion on   
+set env(VMDOPTIXWRITEALPHA) 1                                        
+render aasamples TachyonLOptiXInternal 24                     
 render aosamples TachyonLOptiXInternal 24
 
-proc make_movie {} {
+proc make_movie_tga {} {
     set num [molinfo top get numframes]
     # loop through the frames
     for {set i 1} {$i < $num} {incr i} {
@@ -19,7 +20,7 @@ proc make_movie {} {
     }
 }
 #for transparent
-proc make_movie {} {
+proc make_movie_png {} {
     set num [molinfo top get numframes]
     # Enable alpha channel output
     set env(VMDOPTIXWRITEALPHA) 1
