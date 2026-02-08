@@ -1319,7 +1319,7 @@ mol clipplane color  5 28 top {0.5 0.5 0.5 }
 mol clipplane normal 5 28 top {0.0 0.0 1.0}
 mol clipplane status 5 28 top {0}
 mol representation VDW 26.000000 12.000000
-mol color ColorID 7
+mol color ColorID 11
 mol selection {name DG2_G4d_G80d}
 mol material AOChalky
 mol addrep top
@@ -1387,7 +1387,7 @@ mol clipplane color  5 30 top {0.5 0.5 0.5 }
 mol clipplane normal 5 30 top {0.0 0.0 1.0}
 mol clipplane status 5 30 top {0}
 mol representation LatticeCubes 1.000000
-mol color ColorID 0
+mol color ColorID 11
 mol selection {name chromosome chromo_dummy }
 mol material AOEdgy
 mol addrep top
@@ -1559,7 +1559,7 @@ mol clipplane status 5 35 top {0}
 set viewpoints([molinfo top]) {{{1 0 0 -27781.7} {0 1 0 -26877.3} {0 0 1 -27631} {0 0 0 1}} {{0.73093 0.105962 0.674179 0} {-0.401388 -0.732213 0.550247 0} {0.551949 -0.672799 -0.492664 0} {0 0 0 1}} {{7.04672e-05 0 0 0} {0 7.04672e-05 0 0} {0 0 7.04672e-05 0} {0 0 0 1}} {{1 0 0 -0.0500007} {0 1 0 0.1} {0 0 1 0} {0 0 0 1}}}
 lappend viewplist [molinfo top]
 set topmol [molinfo top]
-# done with molecule 4
+# done with molecule 0
 foreach v $viewplist {
   molinfo $v set {center_matrix rotate_matrix scale_matrix global_matrix} $viewpoints($v)
 }
@@ -1616,8 +1616,8 @@ color scale colors CET_R2 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
     {color Name {LPA} green}
     {color Name {LPB} green}
     {color Name {D} pink}
-    {color Name {G} purple}
     {color Name {R} cyan}
+    {color Name {G} purple}
     {color Name {M} lime}
     {color Name {V} mauve}
     {color Name {T} ochre}
@@ -1746,11 +1746,7 @@ color scale colors CET_R2 {0.0 0.0 0.0} {0.0 0.0 0.0} {0.0 0.0 0.0}
     {color Conformation {1} blue}
     {color Conformation {all} blue}
     {color Molecule {0} blue}
-    {color Molecule {1} red}
-    {color Molecule {2} gray}
-    {color Molecule {yeast1.16_combined_20251031_511_t60.0min_GAE11.1mM_CHROMOchromo_345k_gpu4.lm} gray}
-    {color Molecule {3} yellow}
-    {color Molecule {4} tan}
+    {color Molecule {yeast1.17_combined_20251120_201_t60.0min_GAE11.1mM_ER_CHROMO_EFFRIBOeffecribo345k_gpu4.lm} blue}
     {color Structure {3_10_Helix} blue}
     {color Surface {Grasp} gray}
     {color Labels {Springs} orange}
