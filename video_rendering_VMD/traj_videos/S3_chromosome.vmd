@@ -1319,7 +1319,7 @@ mol clipplane color  5 28 top {0.5 0.5 0.5 }
 mol clipplane normal 5 28 top {0.0 0.0 1.0}
 mol clipplane status 5 28 top {0}
 mol representation VDW 26.000000 12.000000
-mol color ColorID 7
+mol color ColorID 25
 mol selection {name DG2_G4d_G80d}
 mol material AOChalky
 mol addrep top
