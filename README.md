@@ -6,6 +6,7 @@
 [![C++](https://img.shields.io/badge/C++-17-00599C.svg?logo=cplusplus&logoColor=white)](https://isocpp.org/)
 [![VMD](https://img.shields.io/badge/VMD-1.9.4+-8B0000.svg)](https://www.ks.uiuc.edu/Research/vmd/)
 [![HDF5](https://img.shields.io/badge/HDF5-Data%20Storage-0078D4.svg)](https://www.hdfgroup.org/solutions/hdf5/)
+[![DOI](https://zenodo.org/badge/942306277.svg)](https://doi.org/10.5281/zenodo.19582318)
 
 This repository contains the computational framework for simulating yeast galactose switch dynamics using hybrid reaction-diffusion master equation (RDME) and chemical master equation (CME) approaches coupled with ordinary differential equations (ODE). The work demonstrates multi-scale spatial-temporal modeling of gene regulatory networks in realistic cellular geometries.
 
