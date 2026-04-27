@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="yeast_galactose_rdme_ode" name="Galactose Switch RDME-ODE Model">
+    <listOfCompartments>
+      <compartment id="extracellular" name="Extracellular Space" spatialDimensions="3" size="1" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="yeast-lattice.2.pkl.xz"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="cellWall" name="Cell Wall" spatialDimensions="3" size="0.05" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="yeast-lattice.2.pkl.xz"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="nuclearEnvelope" name="Nuclear Envelope" spatialDimensions="3" size="0.01" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="yeast-lattice.2.pkl.xz"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="mitochondria" name="Mitochondria" spatialDimensions="3" size="0.1" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="yeast-lattice.2.pkl.xz"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="vacuole" name="Vacuoles" spatialDimensions="3" size="0.2" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="yeast-lattice.2.pkl.xz"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="plasmaMembrane" name="Plasma Membrane" spatialDimensions="3" size="0.01" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="workspace/plasmMembrane_connected.npy"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="nucleoplasm" name="Nucleoplasm" spatialDimensions="3" size="0.1" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="yeast-lattice.2.pkl.xz"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="cytoplasm" name="Cytoplasm" spatialDimensions="3" size="0.5" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="yeast-lattice.2.pkl.xz"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="endoplasmicReticulum" name="Endoplasmic Reticulum" spatialDimensions="3" size="0.05" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="workspace/ER_geometry/cecER_fixed_geometry.npy"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="pmaER" name="Plasma Membrane Associated ER" spatialDimensions="3" size="0.02" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="workspace/ER_geometry/pmER_fixed_geometry.npy"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="chromosome" name="Chromosome" spatialDimensions="3" size="0.01" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="workspace/gene_masks.npy"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="cytoRibosomes" name="Cytosolic Ribosomes" spatialDimensions="3" size="0.05" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="workspace/effective_cyto_ribosomes_ER_Marie_4152.npy"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+      <compartment id="pmaRibosomes" name="PMA Ribosomes" spatialDimensions="3" size="0.01" constant="true">
+        <annotation>
+          <geometry_link xmlns="http://www.simulationobjects.com/yeastgs">
+            <file path="workspace/effective_pma_ribosomes_ER_Marie_4256.npy"/>
+          </geometry_link>
+        </annotation>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="GAE" compartment="extracellular" initialAmount="100000" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-11" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="GAI" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-11" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G1" compartment="cytoplasm" initialAmount="132" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G2" compartment="plasmaMembrane" initialAmount="1157" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G3" compartment="cytoplasm" initialAmount="4342" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G3i" compartment="cytoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G4" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G4d" compartment="nucleoplasm" initialAmount="309" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G80" compartment="cytoplasm" initialAmount="70" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G80d" compartment="nucleoplasm" initialAmount="200" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G80G3i" compartment="cytoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G2GAE" compartment="plasmaMembrane" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G2GAI" compartment="plasmaMembrane" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="G1GAI" compartment="cytoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="1e-12" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="R1" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="5e-14" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="R2" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="5e-14" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="R3" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="5e-14" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="R4" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="5e-14" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="R80" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="5e-14" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="ribosome" compartment="cytoRibosomes" initialAmount="20000" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="3e-13" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG1" compartment="chromosome" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG1_G4d" compartment="chromosome" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG1_G4d_G80d" compartment="chromosome" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG2" compartment="chromosome" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG2_G4d" compartment="chromosome" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG2_G4d_G80d" compartment="chromosome" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG3" compartment="chromosome" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG3_G4d" compartment="chromosome" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG3_G4d_G80d" compartment="chromosome" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG80" compartment="chromosome" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG80_G4d" compartment="chromosome" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+      <species id="DG80_G4d_G80d" compartment="chromosome" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <spatial_properties xmlns="http://www.simulationobjects.com/yeastgs">
+            <diffusion_coefficient value="0.0" unit="m2/s"/>
+          </spatial_properties>
+        </annotation>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="fd" value="35830900000" constant="true"/>
+      <parameter id="rd" value="1.66666666666667e-05" constant="true"/>
+      <parameter id="f1_4" value="35830900" constant="true"/>
+      <parameter id="r1_4" value="6.41025641025641e-05" constant="true"/>
+      <parameter id="f2_4" value="358309" constant="true"/>
+      <parameter id="r2_4" value="0.00142194920797429" constant="true"/>
+      <parameter id="f1_5" value="35830900" constant="true"/>
+      <parameter id="r1_5" value="0.00168350168350168" constant="true"/>
+      <parameter id="f2_5" value="358309" constant="true"/>
+      <parameter id="r2_5" value="0.00224982001439885" constant="true"/>
+      <parameter id="f1" value="35830900" constant="true"/>
+      <parameter id="r1" value="0.000672043010752688" constant="true"/>
+      <parameter id="f2" value="358309" constant="true"/>
+      <parameter id="r2" value="0.00884173297966401" constant="true"/>
+      <parameter id="fi" value="266.940205" constant="true"/>
+      <parameter id="ri" value="14.8333333333333" constant="true"/>
+      <parameter id="fd3i80" value="9214274.244" constant="true"/>
+      <parameter id="dr3i80" value="0.000266026666666667" constant="true"/>
+      <parameter id="dp_gal3" value="0.0001925" constant="true"/>
+      <parameter id="dp_gal3gal80" value="9.625e-05" constant="true"/>
+      <parameter id="alpha1" value="0.0122983333333333" constant="true"/>
+      <parameter id="alpha2" value="0.0423666666666667" constant="true"/>
+      <parameter id="alpha3" value="0.00710952914166667" constant="true"/>
+      <parameter id="ir_gal4" value="0.000165033333333333" constant="true"/>
+      <parameter id="alpha_rep" value="0.0190666666666667" constant="true"/>
+      <parameter id="alpha80" value="0.0101083333333333" constant="true"/>
+      <parameter id="dr_gal1" value="0.000372666666666667" constant="true"/>
+      <parameter id="dr_gal2" value="0.00128366666666667" constant="true"/>
+      <parameter id="dr_gal3" value="0.000444333333333333" constant="true"/>
+      <parameter id="dr_gal4" value="0.000412666666666667" constant="true"/>
+      <parameter id="dr_rep" value="0.000577666666666667" constant="true"/>
+      <parameter id="dr_gal80" value="0.000481333333333333" constant="true"/>
+      <parameter id="ip_gal1" value="0.03209" constant="true"/>
+      <parameter id="ip_gal2" value="0.224631666666667" constant="true"/>
+      <parameter id="ip_gal3" value="0.924196666666667" constant="true"/>
+      <parameter id="ip_gal4" value="0.178485" constant="true"/>
+      <parameter id="ip_rep" value="0.09627" constant="true"/>
+      <parameter id="ip_gal80" value="0.0612283333333333" constant="true"/>
+      <parameter id="dp_gal1" value="6.41833333333333e-05" constant="true"/>
+      <parameter id="dp_gal2" value="6.41833333333333e-05" constant="true"/>
+      <parameter id="dp_gal4" value="0.000115516666666667" constant="true"/>
+      <parameter id="dp_rep" value="0.0001925" constant="true"/>
+      <parameter id="dp_gal80" value="0.000115516666666667" constant="true"/>
+      <parameter id="k_TR" value="4350" constant="true"/>
+      <parameter id="kr_TR" value="2392.5" constant="true"/>
+      <parameter id="kf_TR" value="0.00031353" constant="true"/>
+      <parameter id="kf_GK" value="0.00040243" constant="true"/>
+      <parameter id="kr_GK" value="1842.5" constant="true"/>
+      <parameter id="kcat_GK" value="3350" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="ode_G2_GAE_bind" reversible="false" compartment="plasmaMembrane">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE">
+            <reaction_space valid_compartments="extracellular,plasmaMembrane"/>
+          </simulation_engine>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="GAE" stoichiometry="1" constant="true"/>
+          <speciesReference species="G2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G2GAE" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kf_TR </ci>
+              <ci> GAE </ci>
+              <ci> G2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G2GAE_unbind" reversible="false" compartment="plasmaMembrane">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE">
+            <reaction_space valid_compartments="extracellular,plasmaMembrane"/>
+          </simulation_engine>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G2GAE" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="GAE" stoichiometry="1" constant="true"/>
+          <speciesReference species="G2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kr_TR </ci>
+              <ci> G2GAE </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G1_metabolize" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE">
+            <reaction_space valid_compartments="cytoplasm"/>
+          </simulation_engine>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G1GAI" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kcat_GK </ci>
+              <ci> G1GAI </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="g4_dimerize" reversible="false" compartment="nucleoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="RDME">
+            <reaction_space valid_compartments="nucleoplasm"/>
+          </simulation_engine>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G4" stoichiometry="2" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G4d" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> fd </ci>
+              <ci> G4 </ci>
+              <ci> G4 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="g1_g4_bind" reversible="false" compartment="chromosome">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="RDME">
+            <reaction_space valid_compartments="chromosome"/>
+          </simulation_engine>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="DG1" stoichiometry="1" constant="true"/>
+          <speciesReference species="G4d" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="DG1_G4d" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> f1_4 </ci>
+              <ci> DG1 </ci>
+              <ci> G4d </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trans_g1" reversible="false" compartment="chromosome">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="RDME">
+            <reaction_space valid_compartments="chromosome"/>
+          </simulation_engine>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="DG1_G4d" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="DG1_G4d" stoichiometry="1" constant="true"/>
+          <speciesReference species="R1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> alpha1 </ci>
+              <ci> DG1_G4d </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="transl_g1" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="RDME">
+            <reaction_space valid_compartments="cytoRibosomes,pmaRibosomes"/>
+          </simulation_engine>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="R1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="R1" stoichiometry="1" constant="true"/>
+          <speciesReference species="G1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ip_gal1 </ci>
+              <ci> R1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="yeast_galactose_cme_ode" name="Galactose Switch CME-ODE Model">
+    <listOfCompartments>
+      <compartment id="cytoplasm" size="3.57e-14" constant="true"/>
+      <compartment id="nucleoplasm" size="3.57e-15" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="GAE" compartment="cytoplasm" initialAmount="100000" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="R1" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="R2" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="R3" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="R4" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="reporter_rna" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="R80" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G1" compartment="cytoplasm" initialAmount="132" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G2" compartment="cytoplasm" initialAmount="1157" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G3" compartment="cytoplasm" initialAmount="4342" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G3i" compartment="cytoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G4" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G4d" compartment="cytoplasm" initialAmount="309" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="reporter" compartment="cytoplasm" initialAmount="132" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G80" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G80C" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G80d" compartment="cytoplasm" initialAmount="157" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G80Cd" compartment="cytoplasm" initialAmount="157" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G80G3i" compartment="cytoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="GAI" compartment="cytoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG1" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG1_G4d" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG1_G4d_G80d" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG2" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG2_G4d" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG2_G4d_G80d" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG3" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG3_G4d" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG3_G4d_G80d" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DGrep" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DGrep_G4d" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DGrep_G4d_G80d" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG80" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG80_G4d" compartment="nucleoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="DG80_G4d_G80d" compartment="nucleoplasm" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G2GAI" compartment="cytoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G2GAE" compartment="cytoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="G1GAI" compartment="cytoplasm" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="fd" value="35830900000" constant="true"/>
+      <parameter id="rd" value="1.66666666666667e-05" constant="true"/>
+      <parameter id="f1_4" value="35830900" constant="true"/>
+      <parameter id="r1_4" value="6.41025641025641e-05" constant="true"/>
+      <parameter id="f2_4" value="358309" constant="true"/>
+      <parameter id="r2_4" value="0.00142194920797429" constant="true"/>
+      <parameter id="f1_5" value="35830900" constant="true"/>
+      <parameter id="r1_5" value="0.00168350168350168" constant="true"/>
+      <parameter id="f2_5" value="358309" constant="true"/>
+      <parameter id="r2_5" value="0.00224982001439885" constant="true"/>
+      <parameter id="f1" value="35830900" constant="true"/>
+      <parameter id="r1" value="0.000672043010752688" constant="true"/>
+      <parameter id="f2" value="358309" constant="true"/>
+      <parameter id="r2" value="0.00884173297966401" constant="true"/>
+      <parameter id="fi" value="266.940205" constant="true"/>
+      <parameter id="ri" value="14.8333333333333" constant="true"/>
+      <parameter id="fd3i80" value="9214274.244" constant="true"/>
+      <parameter id="dr3i80" value="0.000266026666666667" constant="true"/>
+      <parameter id="dp_gal3" value="0.0001925" constant="true"/>
+      <parameter id="dp_gal3gal80" value="9.625e-05" constant="true"/>
+      <parameter id="alpha1" value="0.0122983333333333" constant="true"/>
+      <parameter id="alpha2" value="0.0423666666666667" constant="true"/>
+      <parameter id="alpha3" value="0.00710952914166667" constant="true"/>
+      <parameter id="ir_gal4" value="0.000165033333333333" constant="true"/>
+      <parameter id="alpha_rep" value="0.0190666666666667" constant="true"/>
+      <parameter id="alpha80" value="0.0101083333333333" constant="true"/>
+      <parameter id="dr_gal1" value="0.000372666666666667" constant="true"/>
+      <parameter id="dr_gal2" value="0.00128366666666667" constant="true"/>
+      <parameter id="dr_gal3" value="0.000444333333333333" constant="true"/>
+      <parameter id="dr_gal4" value="0.000412666666666667" constant="true"/>
+      <parameter id="dr_rep" value="0.000577666666666667" constant="true"/>
+      <parameter id="dr_gal80" value="0.000481333333333333" constant="true"/>
+      <parameter id="ip_gal1" value="0.03209" constant="true"/>
+      <parameter id="ip_gal2" value="0.224631666666667" constant="true"/>
+      <parameter id="ip_gal3" value="0.924196666666667" constant="true"/>
+      <parameter id="ip_gal4" value="0.178485" constant="true"/>
+      <parameter id="ip_rep" value="0.09627" constant="true"/>
+      <parameter id="ip_gal80" value="0.0612283333333333" constant="true"/>
+      <parameter id="dp_gal1" value="6.41833333333333e-05" constant="true"/>
+      <parameter id="dp_gal2" value="6.41833333333333e-05" constant="true"/>
+      <parameter id="dp_gal4" value="0.000115516666666667" constant="true"/>
+      <parameter id="dp_rep" value="0.0001925" constant="true"/>
+      <parameter id="dp_gal80" value="0.000115516666666667" constant="true"/>
+      <parameter id="k_TR" value="4350" constant="true"/>
+      <parameter id="kr_TR" value="2392.5" constant="true"/>
+      <parameter id="kf_TR" value="0.00031353" constant="true"/>
+      <parameter id="kf_GK" value="0.00040243" constant="true"/>
+      <parameter id="kr_GK" value="1842.5" constant="true"/>
+      <parameter id="kcat_GK" value="3350" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="g4_dimerize" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="CME"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G4" stoichiometry="2" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G4d" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> fd </ci>
+              <ci> G4 </ci>
+              <ci> G4 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="g4_dedimerize" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="CME"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G4d" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G4" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> rd </ci>
+              <ci> G4d </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="g1_g4_bind" reversible="false" compartment="nucleoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="CME"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="DG1" stoichiometry="1" constant="true"/>
+          <speciesReference species="G4d" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="DG1_G4d" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> f1_4 </ci>
+              <ci> DG1 </ci>
+              <ci> G4d </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trans_g1" reversible="false" compartment="nucleoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="CME"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="DG1_G4d" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="DG1_G4d" stoichiometry="1" constant="true"/>
+          <speciesReference species="R1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> alpha1 </ci>
+              <ci> DG1_G4d </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="transl_g1" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="CME"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="R1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="R1" stoichiometry="1" constant="true"/>
+          <speciesReference species="G1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> ip_gal1 </ci>
+              <ci> R1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G2_GAI_bind" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="GAI" stoichiometry="1" constant="true"/>
+          <speciesReference species="G2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G2GAI" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kf_TR </ci>
+              <ci> GAI </ci>
+              <ci> G2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G2GAI_unbind" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G2GAI" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="GAI" stoichiometry="1" constant="true"/>
+          <speciesReference species="G2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kr_TR </ci>
+              <ci> G2GAI </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G2_GAE_bind" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="GAE" stoichiometry="1" constant="true"/>
+          <speciesReference species="G2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G2GAE" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kf_TR </ci>
+              <ci> GAE </ci>
+              <ci> G2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G2GAE_unbind" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G2GAE" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="GAE" stoichiometry="1" constant="true"/>
+          <speciesReference species="G2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kr_TR </ci>
+              <ci> G2GAE </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G2GAE_to_G2GAI" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G2GAE" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G2GAI" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_TR </ci>
+              <ci> G2GAE </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G2GAI_to_G2GAE" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G2GAI" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G2GAE" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_TR </ci>
+              <ci> G2GAI </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G1_GAI_bind" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="GAI" stoichiometry="1" constant="true"/>
+          <speciesReference species="G1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G1GAI" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kf_GK </ci>
+              <ci> GAI </ci>
+              <ci> G1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G1GAI_unbind" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G1GAI" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="GAI" stoichiometry="1" constant="true"/>
+          <speciesReference species="G1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kr_GK </ci>
+              <ci> G1GAI </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="ode_G1_metabolize" reversible="false" compartment="cytoplasm">
+        <annotation>
+          <simulation_engine xmlns="http://www.simulationobjects.com/yeastgs" type="ODE"/>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="G1GAI" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="G1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kcat_GK </ci>
+              <ci> G1GAI </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
